@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>c++ const用法汇总 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="C++中的const关键字用法太多太杂了，总是记不住，现在写个文档记录一下。 类成员函数尾部加const先上代码 1234567891011121314151617181920class RoleOperation &#123;public:    virtual std::string Op() const &#x3D; 0;  &#x2F;&#x2F; 纯虚函数，需要在派生类中实现    virtual ~RoleOper">
+<meta property="og:type" content="article">
+<meta property="og:title" content="c++ const用法汇总">
+<meta property="og:url" content="http://example.com/2023/11/22/c-const%E7%94%A8%E6%B3%95%E6%B1%87%E6%80%BB/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="C++中的const关键字用法太多太杂了，总是记不住，现在写个文档记录一下。 类成员函数尾部加const先上代码 1234567891011121314151617181920class RoleOperation &#123;public:    virtual std::string Op() const &#x3D; 0;  &#x2F;&#x2F; 纯虚函数，需要在派生类中实现    virtual ~RoleOper">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-11-22T03:49:28.000Z">
+<meta property="article:modified_time" content="2023-11-22T03:50:01.914Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="cpp">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-c-const用法汇总" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/22/c-const%E7%94%A8%E6%B3%95%E6%B1%87%E6%80%BB/" class="article-date">
+  <time class="dt-published" datetime="2023-11-22T03:49:28.000Z" itemprop="datePublished">2023-11-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      c++ const用法汇总
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><code>C++中</code>的<code>const</code>关键字用法太多太杂了，总是记不住，现在写个文档记录一下。</p>
+<h2 id="类成员函数尾部加const"><a href="#类成员函数尾部加const" class="headerlink" title="类成员函数尾部加const"></a>类成员函数尾部加<code>const</code></h2><p>先上代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">RoleOperation</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> std::string <span class="title">Op</span><span class="params">()</span> <span class="type">const</span> </span>= <span class="number">0</span>;  <span class="comment">// 纯虚函数，需要在派生类中实现</span></span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">RoleOperation</span>() = <span class="keyword">default</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AdminOperation</span> : <span class="keyword">public</span> RoleOperation &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">std::string <span class="title">Op</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Performing Admin Operation&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserOperation</span> : <span class="keyword">public</span> RoleOperation &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">std::string <span class="title">Op</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Performing User Operation&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>RoleOperation</code> 是一个抽象基类，定义了一个纯虚函数 <code>Op()</code>，派生类 <code>AdminOperation</code> 和 <code>UserOperation</code> 分别实现了这个函数。在 <code>ProductContext</code> 中，通过 <code>m_pOperation-&gt;Op()</code> 调用 <code>RoleOperation</code> 对象的 <code>Op()</code> 函数，执行相应的操作。</p>
+<p>我们注意到有这样一行代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">virtual</span> std::string <span class="title">Op</span><span class="params">()</span> <span class="type">const</span> </span>= <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这里的 <code>const</code> 位于成员函数声明的尾部，表示 <code>Op()</code> 是一个常量成员函数。这意味着在这个成员函数中，该函数不会修改调用它的对象的状态。在常量成员函数中，不允许修改对象的非静态成员变量。</p>
+<p>当一个成员函数被声明为 <code>const</code> 时，它承诺不会对调用它的对象进行任何修改。这样的声明有两个主要目的：</p>
+<ol>
+<li><strong>告知编译器：</strong> 在编译期间，编译器可以对调用这个函数的对象进行优化，因为它知道该函数不会修改对象的状态。</li>
+<li><strong>限制函数的行为：</strong> 这是一种良好的设计实践，通过使用 <code>const</code>，可以明确指明哪些成员函数会修改对象的状态，哪些成员函数不会。</li>
+</ol>
+<p>在虚函数的声明中使用 <code>const = 0</code> 表示这是一个纯虚函数，并且它是一个常量成员函数。派生类必须提供对应的实现，且该实现中也必须标记为 <code>const</code>。</p>
+<p>在派生类中，重写的 <code>Op()</code> 函数也被声明为 <code>const</code>，以保持对基类纯虚函数的约定。</p>
+<p>这样的写法适合多人一起开发，派生类中的<code>Op()</code>函数的覆写，完全与类中的变量与状态完全隔离。</p>
+<p>未完待续。。。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/22/c-const%E7%94%A8%E6%B3%95%E6%B1%87%E6%80%BB/" data-id="clpf6w9m10000gcuh6r3baues" data-title="c++ const用法汇总" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cpp/" rel="tag">cpp</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/11/26/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/11/22/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F-01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">设计模式之原型模式-01</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Pattern/" rel="tag">Design Pattern</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cpp/" rel="tag">cpp</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Design-Pattern/" style="font-size: 10px;">Design Pattern</a> <a href="/tags/cpp/" style="font-size: 10px;">cpp</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/11/26/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/22/c-const%E7%94%A8%E6%B3%95%E6%B1%87%E6%80%BB/">c++ const用法汇总</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/22/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F-01/">设计模式之原型模式-01</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
