@@ -1,17 +1,41 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-
+<!DOCTYPE html>
+<html lang="zh">
 <head>
-    <meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" href="jemdoc.css" type="text/css" />
-    <link rel="shortcut icon" href="favicon.ico" />
-    <link rel="bookmark" href="favicon.ico" type="image/x-icon" 　 />
-    <title>陈守刚</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>左右布局示例</title>
+    <style>
+        body {
+            display: flex; /* 使用 Flexbox 布局 */
+            margin: 0; /* 去掉默认的边距 */
+            height: 100vh; /* 设置高度为视口高度 */
+        }
+
+        .left {
+            flex: 1; /* 左边占据 1 的比例 */
+            background-color: #f0f0f0; /* 左边背景颜色 */
+            padding: 20px; /* 内边距 */
+        }
+
+        .right {
+            flex: 3; /* 右边占据 3 的比例 */
+            background-color: #ffffff; /* 右边背景颜色 */
+            padding: 20px; /* 内边距 */
+        }
+
+        h1 {
+            text-align: center; /* 标题居中 */
+        }
+    </style>
 </head>
-
 <body>
-    xxxxxxxx
+    <div class="left">
+        <h2>左侧内容</h2>
+        <p>这里可以放一些小内容，比如菜单或导航。</p>
+    </div>
+    <div class="right">
+        <h1>陈守刚</h1>
+        <p>这里是右侧的大内容区，可以放更多的信息或文章。</p>
+    </div>
 </body>
-
 </html>
