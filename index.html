@@ -98,13 +98,19 @@
     </style>
 </head>
 <body>
+    <script>
+        function openNewPage(url) {
+            window.open(url, '_blank'); // 打开新网页
+        }
+    </script>
     <div class="left">
         <h2>文章目录</h2>
+        <h3>网站介绍</h3>
         <button onclick="loadContent('articles/blog_intro.html')">博客介绍</button>
         <button onclick="loadContent('articles/article1.html')">文章 1</button>
         <button onclick="loadContent('articles/article2.html')">文章 2</button>
         <button onclick="loadContent('articles/article3.html')">文章 3</button>
-        <button onclick="loadContent('test.html')">测试</button>
+        <button onclick="openNewPage('test.html')">测试</button>
 
         <h3>类别 1</h3>
         <button class="sub-button" onclick="loadContent('articles/category1/sub_article1.html')">子文章 1</button>
