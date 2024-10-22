@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
@@ -41,5 +41,95 @@
         <h1>博客相关内容介绍</h1>
         <p>这里是右侧的大内容区，可以放更多的信息或文章。</p>
     </div>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客目录示例</title>
+    <style>
+        body {
+            display: flex; /* 使用 Flexbox 布局 */
+            margin: 0; /* 去掉默认的边距 */
+            height: 100vh; /* 设置高度为视口高度 */
+        }
+
+        .left {
+            flex: 1; /* 左边占据 1 的比例 */
+            background-color: #f0f0f0; /* 左边背景颜色 */
+            padding: 20px; /* 内边距 */
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+        }
+
+        .right {
+            flex: 3; /* 右边占据 3 的比例 */
+            background-color: #ffffff; /* 右边背景颜色 */
+            padding: 20px; /* 内边距 */
+        }
+
+        h1 {
+            text-align: center; /* 标题居中 */
+        }
+
+        button {
+            display: block; /* 使按钮在垂直方向上排列 */
+            width: 100%; /* 按钮宽度为 100% */
+            padding: 10px; /* 按钮内边距 */
+            margin: 5px 0; /* 按钮间距 */
+            background-color: #007bff; /* 按钮背景颜色 */
+            color: white; /* 按钮文字颜色 */
+            border: none; /* 去掉边框 */
+            border-radius: 5px; /* 圆角效果 */
+            cursor: pointer; /* 鼠标悬停时为指针 */
+        }
+
+        button:hover {
+            background-color: #0056b3; /* 悬停时按钮颜色 */
+        }
+    </style>
+</head>
+<body>
+    <div class="left">
+        <h2>文章目录</h2>
+        <button onclick="showContent('blogIntro')">博客介绍</button>
+        <button onclick="showContent('article1')">文章 1</button>
+        <button onclick="showContent('article2')">文章 2</button>
+        <button onclick="showContent('article3')">文章 3</button>
+    </div>
+    <div class="right" id="content">
+        <h1>博客相关内容介绍</h1>
+        <p>这里是右侧的大内容区，可以放更多的信息或文章。</p>
+    </div>
+
+    <script>
+        function showContent(article) {
+            const contentDiv = document.getElementById('content');
+            let content = '';
+
+            switch (article) {
+                case 'blogIntro':
+                    content = '<h2>博客介绍</h2><p>这是对博客的介绍内容...</p>';
+                    break;
+                case 'article1':
+                    content = '<h2>文章 1</h2><p>这里是文章 1 的内容...</p>';
+                    break;
+                case 'article2':
+                    content = '<h2>文章 2</h2><p>这里是文章 2 的内容...</p>';
+                    break;
+                case 'article3':
+                    content = '<h2>文章 3</h2><p>这里是文章 3 的内容...</p>';
+                    break;
+                default:
+                    content = '<h2>博客相关内容介绍</h2><p>这里是右侧的大内容区，可以放更多的信息或文章。</p>';
+            }
+
+            contentDiv.innerHTML = content; // 更新右侧内容
+        }
+    </script>
 </body>
 </html>
