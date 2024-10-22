@@ -96,10 +96,10 @@
 <body>
     <div class="left">
         <h2>文章目录</h2>
-        <button onclick="showContent('blogIntro')">博客介绍</button>
-        <button onclick="showContent('article1')">文章 1</button>
-        <button onclick="showContent('article2')">文章 2</button>
-        <button onclick="showContent('article3')">文章 3</button>
+        <button onclick="loadContent('articles/blog_intro.html')">博客介绍</button>
+        <button onclick="loadContent('articles/article1.html')">文章 1</button>
+        <button onclick="loadContent('articles/article2.html')">文章 2</button>
+        <button onclick="loadContent('articles/article3.html')">文章 3</button>
     </div>
     <div class="right" id="content">
         <h1>博客相关内容介绍</h1>
@@ -107,28 +107,17 @@
     </div>
 
     <script>
-        function showContent(article) {
-            const contentDiv = document.getElementById('content');
-            let content = '';
-
-            switch (article) {
-                case 'blogIntro':
-                    content = '<h2>博客介绍</h2><p>这是对博客的介绍内容...</p>';
-                    break;
-                case 'article1':
-                    content = '<h2>文章 1</h2><p>这里是文章 1 的内容...</p>';
-                    break;
-                case 'article2':
-                    content = '<h2>文章 2</h2><p>这里是文章 2 的内容...</p>';
-                    break;
-                case 'article3':
-                    content = '<h2>文章 3</h2><p>这里是文章 3 的内容...</p>';
-                    break;
-                default:
-                    content = '<h2>博客相关内容介绍</h2><p>这里是右侧的大内容区，可以放更多的信息或文章。</p>';
+         async function loadContent(file) {
+            try {
+                const response = await fetch(file);
+                if (!response.ok) {
+                    throw new Error('网络错误');
+                }
+                const text = await response.text();
+                document.getElementById('content').innerHTML = text; // 更新右侧内容
+            } catch (error) {
+                document.getElementById('content').innerHTML = '<p>加载内容失败：' + error.message + '</p>';
             }
-
-            contentDiv.innerHTML = content; // 更新右侧内容
         }
     </script>
 </body>
