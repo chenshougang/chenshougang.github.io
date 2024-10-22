@@ -76,7 +76,7 @@
             text-align: center; /* 标题居中 */
         }
 
-        button {
+        button, .sub-button {
             display: block; /* 使按钮在垂直方向上排列 */
             width: 100%; /* 按钮宽度为 100% */
             padding: 10px; /* 按钮内边距 */
@@ -88,8 +88,12 @@
             cursor: pointer; /* 鼠标悬停时为指针 */
         }
 
-        button:hover {
-            background-color: #0056b3; /* 悬停时按钮颜色 */
+        button:hover, .sub-button:hover {
+            background-color: #a1c5eb; /* 悬停时按钮颜色 */
+        }
+
+        .sub-button{
+            margin-left: 20px;
         }
     </style>
 </head>
@@ -100,6 +104,15 @@
         <button onclick="loadContent('articles/article1.html')">文章 1</button>
         <button onclick="loadContent('articles/article2.html')">文章 2</button>
         <button onclick="loadContent('articles/article3.html')">文章 3</button>
+
+        <h3>类别 1</h3>
+        <button class="sub-button" onclick="loadContent('articles/category1/sub_article1.html')">子文章 1</button>
+        <button class="sub-button" onclick="loadContent('articles/category1/sub_article2.html')">子文章 2</button>
+
+        <h3>类别 2</h3>
+        <button class="sub-button" onclick="loadContent('articles/category2/sub_article3.html')">子文章 3</button>
+        <button class="sub-button" onclick="loadContent('articles/category2/sub_article4.html')">子文章 4</button>
+        
     </div>
     <div class="right" id="content">
         <h1>博客相关内容介绍</h1>
