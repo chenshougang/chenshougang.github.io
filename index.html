@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>陈守刚的个人网站</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         :root {
             --bg-primary: #ffffff;
@@ -172,6 +173,46 @@
             background-color: #a1c5eb; /* 悬停时按钮颜色 */
         }
 
+        /* Markdown样式 */
+        #content {
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        #content h1, #content h2, #content h3, #content h4, #content h5, #content h6 {
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+            color: var(--text-primary);
+        }
+
+        #content ul, #content ol {
+            padding-left: 2em;
+            margin: 1em 0;
+        }
+
+        #content code {
+            background-color: var(--bg-secondary);
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        #content pre code {
+            display: block;
+            padding: 1em;
+            overflow-x: auto;
+            line-height: 1.4;
+        }
+
+        #content a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        #content a:hover {
+            text-decoration: underline;
+        }
+
         .sub-button{
             margin-left: 20px;
         }
@@ -328,7 +369,8 @@
                     throw new Error('网络错误');
                 }
                 const text = await response.text();
-                document.getElementById('content').innerHTML = text; // 更新右侧内容
+                const htmlContent = marked.parse(text); // 使用marked解析Markdown
+                document.getElementById('content').innerHTML = htmlContent; // 更新右侧内容
             } catch (error) {
                 document.getElementById('content').innerHTML = '<p>加载内容失败：' + error.message + '</p>';
             }
