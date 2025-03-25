@@ -1,51 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="zh">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>陈守刚的个人网站</title>
-    <style>
-        body {
-            display: flex; /* 使用 Flexbox 布局 */
-            margin: 0; /* 去掉默认的边距 */
-            height: 100vh; /* 设置高度为视口高度 */
-        }
-
-        .left {
-            flex: 1; /* 左边占据 1 的比例 */
-            background-color: #f0f0f0; /* 左边背景颜色 */
-            padding: 20px; /* 内边距 */
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* 添加阴影 */
-        }
-
-        .right {
-            flex: 3; /* 右边占据 3 的比例 */
-            background-color: #ffffff; /* 右边背景颜色 */
-            padding: 20px; /* 内边距 */
-        }
-
-        h1 {
-            text-align: center; /* 标题居中 */
-        }
-    </style>
-</head>
-<body>
-    <div class="left">
-        <h2>文章目录</h2>
-        <p>博客介绍</p>
-        <p>博客介绍</p>
-        <p>博客介绍</p>
-        <p>博客介绍</p>
-    </div>
-    <div class="right">
-        <h1>博客相关内容介绍</h1>
-        <p>这里是右侧的大内容区，可以放更多的信息或文章。</p>
-    </div>
-</body>
-</html> -->
-
-
-
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -53,10 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>陈守刚的个人网站</title>
     <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f0f0f0;
+            --text-primary: #000000;
+            --text-secondary: #333333;
+            --border-color: #e9ecef;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --border-color: #404040;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+        }
+
         body {
-            display: flex; /* 使用 Flexbox 布局 */
-            margin: 0; /* 去掉默认的边距 */
-            height: 100vh; /* 设置高度为视口高度 */
+            display: flex;
+            margin: 0;
+            height: 100vh;
+            overflow-x: hidden;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .left {
+                flex: none;
+                max-height: 300px;
+                width: 100%;
+            }
+
+            .right {
+                flex: 1;
+            }
+
+            .toc {
+                display: none;
+            }
+
+            .content-area {
+                padding-right: 0;
+                max-width: 100%;
+            }
         }
 
         .left {
@@ -64,12 +62,94 @@
             background-color: #f0f0f0; /* 左边背景颜色 */
             padding: 20px; /* 内边距 */
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+            overflow-y: auto; /* 添加垂直滚动条 */
+            max-height: 100vh; /* 最大高度为视口高度 */
+        }
+
+        .category {
+            margin-bottom: 15px;
+        }
+
+        .category h3 {
+            cursor: pointer;
+            user-select: none;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .category h3::before {
+            content: '▼';
+            margin-right: 8px;
+            font-size: 0.8em;
+            transition: transform 0.3s;
+        }
+
+        .category.collapsed h3::before {
+            transform: rotate(-90deg);
+        }
+
+        .category.collapsed .category-content {
+            display: none;
         }
 
         .right {
-            flex: 5; /* 右边占据 3 的比例 */
-            background-color: #ffffff; /* 右边背景颜色 */
-            padding: 20px; /* 内边距 */
+            flex: 5;
+            background-color: var(--bg-primary);
+            padding: 20px;
+            position: relative;
+            display: flex;
+        }
+
+        .loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+
+        .loading::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 3px solid var(--border-color);
+            border-top-color: #007bff;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .content-area {
+            flex: 1;
+            padding-right: 20px;
+            max-width: 800px;
+        }
+
+        .toc {
+            width: 200px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-left: 1px solid #e9ecef;
+            position: sticky;
+            top: 20px;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: #007bff;
+            z-index: 1000;
+            transition: width 0.2s;
         }
 
         h1 {
@@ -100,25 +180,119 @@
 <body>
     <script>
         function openNewPage(url) {
-            window.open(url, '_blank'); // 打开新网页
+            window.open(url, '_blank');
+        }
+
+        // 为所有分类标题添加点击事件
+        document.addEventListener('DOMContentLoaded', function() {
+            const categories = document.querySelectorAll('.category h3');
+            categories.forEach(category => {
+                category.addEventListener('click', function() {
+                    const parent = this.parentElement;
+                    parent.classList.toggle('collapsed');
+                });
+            });
+
+            // 初始化主题
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        });
+
+        // 主题切换功能
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // 生成文章目录
+        function generateTOC() {
+            const content = document.getElementById('article-content');
+            const toc = document.getElementById('toc-content');
+            const headings = content.querySelectorAll('h1, h2, h3, h4, h5, h6');
+            const tocList = document.createElement('ul');
+
+            headings.forEach((heading, index) => {
+                const level = parseInt(heading.tagName.charAt(1));
+                const li = document.createElement('li');
+                const link = document.createElement('a');
+                const id = `heading-${index}`;
+
+                heading.id = id;
+                link.textContent = heading.textContent;
+                link.href = `#${id}`;
+                link.style.paddingLeft = `${(level - 1) * 15}px`;
+                li.appendChild(link);
+                tocList.appendChild(li);
+            });
+
+            toc.innerHTML = '';
+            toc.appendChild(tocList);
+        }
+
+        // 更新阅读进度条
+        function updateProgressBar() {
+            const winScroll = window.scrollY;
+            const height = document.documentElement.scrollHeight - window.innerHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        }
+
+        // 添加滚动事件监听
+        window.addEventListener('scroll', updateProgressBar);
+
+        // 文章加载函数
+        async function loadContent(url) {
+            const loading = document.querySelector('.loading');
+            const content = document.getElementById('article-content');
+
+            loading.style.display = 'block';
+            try {
+                const response = await fetch(url);
+                const text = await response.text();
+                content.innerHTML = text;
+                generateTOC();
+                updateProgressBar();
+            } catch (error) {
+                console.error('Error loading content:', error);
+                content.innerHTML = '<p>加载失败，请稍后重试。</p>';
+            } finally {
+                loading.style.display = 'none';
+            }
         }
     </script>
     <div class="left">
+        <div class="theme-switch">
+            <button id="theme-toggle" onclick="toggleTheme()">🌓 切换主题</button>
+        </div>
         <h2>文章目录</h2>
-        <h3>网站介绍</h3>
-        <button onclick="loadContent('articles/blog_intro.html')">博客介绍</button>
-        <button onclick="loadContent('articles/article1.html')">文章 1</button>
-        <button onclick="loadContent('articles/article2.html')">文章 2</button>
-        <button onclick="loadContent('articles/article3.html')">文章 3</button>
-        <button onclick="openNewPage('test.html')">测试</button>
+        <div class="category">
+            <h3>网站介绍</h3>
+            <div class="category-content">
+                <button onclick="loadContent('articles/blog_intro.html')">博客介绍</button>
+                <button onclick="loadContent('articles/article1.html')">文章 1</button>
+                <button onclick="loadContent('articles/article2.html')">文章 2</button>
+                <button onclick="loadContent('articles/article3.html')">文章 3</button>
+                <button onclick="openNewPage('test.html')">测试</button>
+            </div>
+        </div>
 
-        <h3>类别 1</h3>
-        <button class="sub-button" onclick="loadContent('articles/category1/sub_article1.html')">子文章 1</button>
-        <button class="sub-button" onclick="loadContent('articles/category1/sub_article2.html')">子文章 2</button>
+        <div class="category">
+            <h3>类别 1</h3>
+            <div class="category-content">
+                <button class="sub-button" onclick="loadContent('articles/category1/sub_article1.html')">子文章 1</button>
+                <button class="sub-button" onclick="loadContent('articles/category1/sub_article2.html')">子文章 2</button>
+            </div>
+        </div>
 
-        <h3>类别 2</h3>
-        <button class="sub-button" onclick="loadContent('articles/category2/sub_article3.html')">子文章 3</button>
-        <button class="sub-button" onclick="loadContent('articles/category2/sub_article4.html')">子文章 4</button>
+        <div class="category">
+            <h3>类别 2</h3>
+            <div class="category-content">
+                <button class="sub-button" onclick="loadContent('articles/category2/sub_article3.html')">子文章 3</button>
+                <button class="sub-button" onclick="loadContent('articles/category2/sub_article4.html')">子文章 4</button>
+            </div>
+        </div>
 
         <h3>类别 2</h3>
         <button class="sub-button" onclick="loadContent('articles/category2/sub_article3.html')">子文章 3</button>
