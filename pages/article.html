@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的博客</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>文章详情 - 我的博客</title>
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/styles/github.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -15,9 +15,9 @@
                 <h1 class="site-title">我的博客</h1>
                 <nav>
                     <ul>
-                        <li><a href="index.html" class="active">首页</a></li>
-                        <li><a href="pages/articles.html">文章</a></li>
-                        <li><a href="pages/about.html">关于</a></li>
+                        <li><a href="../index.html">首页</a></li>
+                        <li><a href="articles.html">文章</a></li>
+                        <li><a href="about.html">关于</a></li>
                     </ul>
                 </nav>
                 <button id="theme-toggle" aria-label="切换主题">
@@ -28,20 +28,20 @@
         </header>
 
         <main>
-            <section class="hero">
-                <h2>欢迎来到我的博客</h2>
-                <p>这里记录我的思考、学习和生活</p>
-            </section>
-
-            <section class="featured-posts">
-                <h3>最新文章</h3>
-                <div class="post-grid" id="featured-posts-container">
-                    <!-- 文章将通过JavaScript动态加载 -->
+            <article class="article-container">
+                <header class="article-header">
+                    <h1 class="article-title" id="article-title">文章标题</h1>
+                    <div class="article-meta">
+                        <span class="article-date" id="article-date">发布日期</span>
+                        <div class="article-tags" id="article-tags">
+                            <!-- 标签将通过JavaScript动态加载 -->
+                        </div>
+                    </div>
+                </header>
+                <div class="article-content" id="article-content">
+                    <!-- 文章内容将通过JavaScript动态加载 -->
                 </div>
-                <div class="view-more">
-                    <a href="pages/articles.html" class="btn">查看更多文章</a>
-                </div>
-            </section>
+            </article>
         </main>
 
         <footer>
@@ -62,7 +62,8 @@
     <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/languages/python.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/languages/css.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/languages/html.min.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/posts.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/posts.js"></script>
+    <script src="../js/article.js"></script>
 </body>
 </html>
