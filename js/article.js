@@ -1,48 +1,56 @@
-// 在文章详情页面加载特定文章
-document.addEventListener('DOMContentLoaded', function() {
-    // 获取URL参数中的文章ID
-    const urlParams = new URLSearchParams(window.location.search);
-    const articleId = parseInt(urlParams.get('id'));
-    
-    if (!articleId) {
-        console.error('未找到文章ID');
-        return;
+async function loadMarkdownContent(filePath) {
+  try {
+    const response = await fetch(filePath);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
     }
-    
-    // 查找对应ID的文章
-    const article = posts.find(post => post.id === articleId);
-    
-    if (!article) {
-        console.error('未找到ID为', articleId, '的文章');
-        return;
+    const markdown = await response.text();
+    return markdown;
+  } catch (error) {
+    console.error('Error loading markdown file:', error);
+    return '';
+  }
+}
+
+function renderMarkdown(content) {
+  const container = document.getElementById('article-content');
+  if (container) {
+    container.innerHTML = marked.parse(content);
+    hljs.highlightAll();
+  }
+}
+
+async function initArticle() {
+  const params = new URLSearchParams(window.location.search);
+  const postId = params.get('id');
+  const post = posts.find(p => p.id === parseInt(postId));
+  if (post) {
+    // 设置文章标题
+    const titleElement = document.getElementById('article-title');
+    if (titleElement) {
+      titleElement.textContent = post.title;
     }
-    
-    // 更新页面标题
-    document.title = `${article.title} - 我的博客`;
-    
-    // 填充文章内容
-    const articleTitle = document.getElementById('article-title');
-    const articleDate = document.getElementById('article-date');
-    const articleTags = document.getElementById('article-tags');
-    const articleContent = document.getElementById('article-content');
-    
-    if (articleTitle) articleTitle.textContent = article.title;
-    if (articleDate) articleDate.innerHTML = `<i class="fas fa-calendar-alt"></i> ${formatDate(article.date)}`;
-    
-    if (articleTags) {
-        articleTags.innerHTML = article.tags.map(tag => 
-            `<span class="article-tag">${tag}</span>`
-        ).join('');
+
+    // 设置发布日期
+    const dateElement = document.getElementById('article-date');
+    if (dateElement) {
+      dateElement.textContent = post.date;
     }
-    
-    if (articleContent && window.marked) {
-        articleContent.innerHTML = marked.parse(article.content);
-        
-        // 应用代码高亮
-        if (window.hljs) {
-            document.querySelectorAll('pre code').forEach((block) => {
-                hljs.highlightBlock(block);
-            });
-        }
+
+    // 设置标签
+    const tagsElement = document.getElementById('article-tags');
+    if (tagsElement) {
+      tagsElement.innerHTML = post.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
     }
-});
+
+    // 加载并渲染文章内容
+    if (post.file) {
+      const content = await loadMarkdownContent(post.file);
+      renderMarkdown(content);
+    } else if (post.content) {
+      renderMarkdown(post.content);
+    }
+  }
+}
+
+window.addEventListener('load', initArticle);

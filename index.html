@@ -64,5 +64,16 @@
     <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/languages/html.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/posts.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const featuredPostsContainer = document.getElementById('featured-posts-container');
+    if (featuredPostsContainer) {
+      posts.slice(0, 3).forEach(post => {
+        const postCard = createPostCard(post);
+        featuredPostsContainer.appendChild(postCard);
+      });
+    }
+  });
+</script>
 </body>
 </html>
