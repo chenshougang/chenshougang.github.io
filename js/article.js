@@ -17,7 +17,7 @@ async function loadMarkdownContent(filePath) {
       // 如果我们在pages目录下，并且文件路径以../开头
       // 这意味着文件位于网站根目录下
       const pathWithoutPrefix = filePath.replace(/^\.\.\//, '');
-      absolutePath = new URL(pathWithoutPrefix, baseUrl.origin + '/').href;
+      absolutePath = new URL(pathWithoutPrefix, baseUrl.origin).href;
     } else if (filePath.startsWith('/')) {
       // 如果路径以/开头，则它是相对于网站根目录的绝对路径
       absolutePath = new URL(filePath, baseUrl.origin).href;
@@ -29,6 +29,8 @@ async function loadMarkdownContent(filePath) {
     }
     
     console.log('Calculated absolute path:', absolutePath);
+    console.log('Final request URL:', absolutePath);
+    console.log('Server base origin:', window.location.origin);
     
     // 尝试直接使用相对于服务器根目录的路径
     if (filePath.startsWith('../articles/')) {
@@ -55,6 +57,7 @@ async function loadMarkdownContent(filePath) {
     }
     
     // 如果简化路径失败或不适用，使用计算出的绝对路径
+    console.log('Final fetch URL:', absolutePath);
     const response = await fetch(absolutePath, {
       headers: {
         'Cache-Control': 'no-cache',
@@ -77,7 +80,8 @@ async function loadMarkdownContent(filePath) {
     try {
       console.log('Trying fallback method...');
       const fallbackPath = filePath.replace(/^\.\.\//, '');
-      const fallbackUrl = new URL(fallbackPath, window.location.origin + '/').href;
+      const fallbackUrl = new URL(fallbackPath, window.location.origin).href;
+      console.log('Fallback constructed URL:', fallbackUrl);
       console.log('Fallback URL:', fallbackUrl);
       
       const fallbackResponse = await fetch(fallbackUrl, {
