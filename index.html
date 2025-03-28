@@ -1,10 +1,16 @@
 <!DOCTYPE html>
+<!-- 文档类型声明，确保浏览器使用标准模式渲染 -->
 <html lang="zh-CN">
+<!-- 根元素，设置网站主要语言为简体中文 -->
 <head>
+  <!-- 头部开始：包含元信息和资源引用 -->
     <meta charset="UTF-8">
+    <!-- 设置文档字符编码为UTF-8 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 移动端视口设置，适配响应式布局 -->
     <title>陈守刚的个人网站</title>
     <link rel="stylesheet" href="css/style.css">
+    <!-- 主样式表 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/styles/github.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -14,10 +20,12 @@
             <div class="header-content">
                 <h1 class="site-title">我的博客</h1>
                 <nav>
+        <!-- 主导航菜单 -->
                     <ul>
                         <li><a href="index.html" class="active">首页</a></li>
                         <li><a href="pages/articles.html">文章</a></li>
                         <li><a href="pages/about.html">关于</a></li>
+                        <li><button onclick="changeText()">关于</button></li>
                     </ul>
                 </nav>
                 <button id="theme-toggle" aria-label="切换主题">
@@ -28,9 +36,10 @@
         </header>
 
         <main>
+      <!-- 页面主体内容区 -->
             <section class="hero">
                 <h2>欢迎来到我的博客</h2>
-                <p>这里记录我的思考、学习和生活</p>
+                <p id="info">这里记录我的思考、学习和生活</p>
             </section>
 
             <section class="featured-posts">
@@ -45,6 +54,7 @@
         </main>
 
         <footer>
+    <!-- 页脚区域 -->
             <div class="footer-content">
                 <div class="footer-links">
                     <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
@@ -63,6 +73,7 @@
     <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/languages/css.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/languages/html.min.js"></script>
     <script src="js/main.js"></script>
+<!-- 主交互脚本 -->
     <script src="js/posts.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -74,6 +85,18 @@
       });
     }
   });
+</script>
+<script>
+  function changeText() {
+    const infoElement = document.getElementById('info');
+    const currentText = infoElement.textContent;
+
+    if (currentText === '这里记录我的思考、学习和生活') {
+      infoElement.textContent = '这里记录我的思考、学习和生活!';
+    } else {
+      infoElement.textContent = '这里记录我的思考、学习和生活!!';
+    }
+  }
 </script>
 </body>
 </html>

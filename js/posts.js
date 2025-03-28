@@ -7,7 +7,7 @@ const posts = [
     date: '2023-10-01',
     tags: ['C++', '网络编程'],
     // content: 'Boost.Asio是一个跨平台的C++库，用于网络和底层I/O编程...',
-    file: '/articles/BoostAsio.md'
+    file: '../articles/BoostAsio.md'
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ const posts = [
     title: '学习React Hooks',
     date: '2023-09-25',
     tags: ['React', '前端'],
-    file: '/articles/BoostAsio.md'
+    file: '../articles/BoostAsio.md'
   },
   {
     id: 3,
@@ -23,6 +23,6 @@ const posts = [
     title: '关于效率的思考',
     date: '2023-09-20',
     tags: ['个人成长'],
-    file: '/articles/BoostAsio.md'
+    file: '../articles/BoostAsio.md'
   }
 ];
