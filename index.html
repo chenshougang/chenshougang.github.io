@@ -79,12 +79,22 @@
   document.addEventListener('DOMContentLoaded', function() {
     const featuredPostsContainer = document.getElementById('featured-posts-container');
     if (featuredPostsContainer) {
-      posts.slice(0, 3).forEach(post => {
+      posts.slice(-3).reverse().forEach(post => {
         const postCard = createPostCard(post);
         featuredPostsContainer.appendChild(postCard);
       });
     }
   });
+
+//   document.addEventListener('DOMContentLoaded', function() {
+//     const featuredPostsContainer = document.getElementById('featured-posts-container');
+//     if (featuredPostsContainer) {
+//       posts.slice(0,3).reverse().forEach(post => {
+//         const postCard = createPostCard(post);
+//         featuredPostsContainer.appendChild(postCard);
+//       });
+//     }
+//   });
 </script>
 <!-- <script>
   function changeText() {
