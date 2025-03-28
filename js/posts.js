@@ -25,5 +25,14 @@ const posts = [
     date: new Date().toISOString().split('T')[0],
     tags: ['个人成长'],
     file: '../articles/Efficiency.md'
+  },
+  {
+    id: 4,
+    excerpt: '设计模式介绍和案例',
+    title: '设计模式',
+    // date: '2023-10-01',
+    date: new Date().toISOString().split('T')[0],
+    tags: ['C++', '设计模式'],
+    file: '../articles/DesignPattern.md'
   }
 ];
