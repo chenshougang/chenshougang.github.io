@@ -12,7 +12,7 @@
     --transition-speed: 0.3s;    /* 过渡动画持续时间 */
     --container-width: 1200px;   /* 内容容器最大宽度 */
 }
-
+/*  */
 /* 暗色主题变量 - 通过data-theme属性切换 */
 [data-theme="dark"] {
     --primary-color: #3498db;    /* 保持主色调一致 */
