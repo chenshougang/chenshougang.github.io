@@ -1,35 +1,37 @@
-/* 全局样式 */
+/* 全局CSS变量定义 - 用于统一管理网站的颜色、尺寸和过渡效果 */
 :root {
-    --primary-color: #3498db;
-    --secondary-color: #2ecc71;
-    --text-color: #333;
-    --background-color: #fff;
-    --card-background: #f9f9f9;
-    --border-color: #eaeaea;
-    --shadow-color: rgba(0, 0, 0, 0.1);
-    --header-height: 60px;
-    --footer-height: 60px;
-    --transition-speed: 0.3s;
-    --container-width: 1200px;
+    --primary-color: #3498db;    /* 主要强调色，用于重要元素和交互 */
+    --secondary-color: #2ecc71;  /* 次要强调色，用于次要元素和悬停效果 */
+    --text-color: #333;          /* 主要文本颜色 */
+    --background-color: #fff;    /* 页面背景色 */
+    --card-background: #f9f9f9;  /* 卡片背景色 */
+    --border-color: #eaeaea;     /* 边框颜色 */
+    --shadow-color: rgba(0, 0, 0, 0.1);  /* 阴影颜色 */
+    --header-height: 60px;       /* 头部导航栏高度 */
+    --footer-height: 60px;       /* 页脚高度 */
+    --transition-speed: 0.3s;    /* 过渡动画持续时间 */
+    --container-width: 1200px;   /* 内容容器最大宽度 */
 }
 
-/* 暗色主题 */
+/* 暗色主题变量 - 通过data-theme属性切换 */
 [data-theme="dark"] {
-    --primary-color: #3498db;
-    --secondary-color: #2ecc71;
-    --text-color: #f5f5f5;
-    --background-color: #1a1a1a;
-    --card-background: #2d2d2d;
-    --border-color: #444;
-    --shadow-color: rgba(0, 0, 0, 0.3);
+    --primary-color: #3498db;    /* 保持主色调一致 */
+    --secondary-color: #2ecc71;  /* 保持次要色调一致 */
+    --text-color: #f5f5f5;       /* 亮色文本，提高暗色主题下的可读性 */
+    --background-color: #1a1a1a; /* 深色背景 */
+    --card-background: #2d2d2d;  /* 深色卡片背景 */
+    --border-color: #444;        /* 深色边框 */
+    --shadow-color: rgba(0, 0, 0, 0.3); /* 加深阴影效果 */
 }
 
+/* 重置默认样式 */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* 基础页面样式 */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
@@ -38,6 +40,7 @@ body {
     transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
+/* 链接样式 */
 a {
     color: var(--primary-color);
     text-decoration: none;
@@ -48,12 +51,13 @@ a:hover {
     color: var(--secondary-color);
 }
 
+/* 图片响应式处理 */
 img {
     max-width: 100%;
     height: auto;
 }
 
-/* 容器 */
+/* 主容器布局 - 使用flex实现最小高度占满视口 */
 .container {
     max-width: var(--container-width);
     margin: 0 auto;
@@ -63,7 +67,7 @@ img {
     flex-direction: column;
 }
 
-/* 头部 */
+/* 头部导航栏 - 固定在顶部 */
 header {
     position: sticky;
     top: 0;
@@ -73,6 +77,7 @@ header {
     transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
 }
 
+/* 头部内容布局 */
 .header-content {
     display: flex;
     justify-content: space-between;
@@ -80,12 +85,14 @@ header {
     height: var(--header-height);
 }
 
+/* 网站标题样式 */
 .site-title {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--primary-color);
 }
 
+/* 导航菜单布局 */
 nav ul {
     display: flex;
     list-style: none;
@@ -95,6 +102,7 @@ nav ul li {
     margin-left: 20px;
 }
 
+/* 导航链接样式及交互效果 */
 nav ul li a {
     color: var(--text-color);
     font-weight: 500;
@@ -109,7 +117,7 @@ nav ul li a.active {
     color: white;
 }
 
-/* 主题切换按钮 */
+/* 主题切换按钮样式 */
 #theme-toggle {
     background: none;
     border: none;
@@ -130,12 +138,14 @@ nav ul li a.active {
     background-color: var(--card-background);
 }
 
+/* 主题图标切换动画 */
 .sun-icon,
 .moon-icon {
     transition: opacity var(--transition-speed), transform var(--transition-speed);
     position: absolute;
 }
 
+/* 明暗主题图标显示控制 */
 [data-theme="light"] .sun-icon {
     opacity: 1;
     transform: scale(1);
@@ -156,13 +166,13 @@ nav ul li a.active {
     transform: scale(1);
 }
 
-/* 主要内容 */
+/* 主要内容区域 */
 main {
     flex: 1;
     padding: 40px 0;
 }
 
-/* 英雄区域 */
+/* 英雄区域 - 页面顶部大型展示区 */
 .hero {
     text-align: center;
     padding: 60px 20px;
@@ -185,7 +195,7 @@ main {
     margin: 0 auto;
 }
 
-/* 文章卡片 */
+/* 文章卡片网格布局 */
 .post-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -193,6 +203,7 @@ main {
     margin-top: 30px;
 }
 
+/* 文章卡片样式 */
 .post-card {
     background-color: var(--card-background);
     border-radius: 8px;
@@ -201,11 +212,13 @@ main {
     transition: transform var(--transition-speed), box-shadow var(--transition-speed), background-color var(--transition-speed);
 }
 
+/* 卡片悬停效果 */
 .post-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px var(--shadow-color);
 }
 
+/* 卡片封面图样式 */
 .post-card-image {
     height: 200px;
     background-color: var(--primary-color);
@@ -213,6 +226,7 @@ main {
     background-position: center;
 }
 
+/* 卡片内容区域 */
 .post-card-content {
     padding: 20px;
 }
@@ -223,6 +237,7 @@ main {
     color: var(--text-color);
 }
 
+/* 文章摘要 - 限制显示行数 */
 .post-card-excerpt {
     color: var(--text-color);
     margin-bottom: 15px;
@@ -232,6 +247,7 @@ main {
     overflow: hidden;
 }
 
+/* 文章元信息样式 */
 .post-card-meta {
     display: flex;
     justify-content: space-between;
@@ -250,6 +266,7 @@ main {
     margin-right: 5px;
 }
 
+/* 文章标签样式 */
 .post-tags {
     display: flex;
     flex-wrap: wrap;
@@ -265,7 +282,7 @@ main {
     font-size: 0.8rem;
 }
 
-/* 按钮 */
+/* 通用按钮样式 */
 .btn {
     display: inline-block;
     background-color: var(--primary-color);
@@ -281,12 +298,13 @@ main {
     color: white;
 }
 
+/* 查看更多按钮容器 */
 .view-more {
     text-align: center;
     margin-top: 40px;
 }
 
-/* 文章详情页 */
+/* 文章详情页样式 */
 .article-container {
     max-width: 800px;
     margin: 0 auto;
@@ -297,6 +315,7 @@ main {
     transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
 }
 
+/* 文章头部样式 */
 .article-header {
     margin-bottom: 30px;
 }
@@ -307,6 +326,7 @@ main {
     color: var(--text-color);
 }
 
+/* 文章元信息样式 */
 .article-meta {
     display: flex;
     justify-content: space-between;
@@ -326,6 +346,7 @@ main {
     margin-right: 5px;
 }
 
+/* 文章标签样式 */
 .article-tags {
     display: flex;
     flex-wrap: wrap;
@@ -340,11 +361,13 @@ main {
     font-size: 0.8rem;
 }
 
+/* 文章内容样式 */
 .article-content {
     line-height: 1.8;
     color: var(--text-color);
 }
 
+/* 文章标题层级样式 */
 .article-content h1,
 .article-content h2,
 .article-content h3,
@@ -355,16 +378,19 @@ main {
     color: var(--text-color);
 }
 
+/* 文章段落样式 */
 .article-content p {
     margin-bottom: 1.5em;
 }
 
+/* 文章图片样式 */
 .article-content img {
     max-width: 100%;
     border-radius: 8px;
     margin: 20px 0;
 }
 
+/* 代码块样式 */
 .article-content pre {
     background-color: var(--background-color);
     border-radius: 4px;
@@ -373,10 +399,12 @@ main {
     margin: 20px 0;
 }
 
+/* 行内代码样式 */
 .article-content code {
     font-family: 'Courier New', Courier, monospace;
 }
 
+/* 引用块样式 */
 .article-content blockquote {
     border-left: 4px solid var(--primary-color);
     padding-left: 20px;
@@ -385,13 +413,14 @@ main {
     color: var(--text-color);
 }
 
+/* 列表样式 */
 .article-content ul,
 .article-content ol {
     margin: 20px 0;
     padding-left: 20px;
 }
 
-/* 文章列表页 */
+/* 文章列表页头部样式 */
 .articles-header {
     text-align: center;
     margin-bottom: 40px;
@@ -410,7 +439,7 @@ main {
     color: var(--text-color);
 }
 
-/* 关于页面 */
+/* 关于页面样式 */
 .about-container {
     max-width: 800px;
     margin: 0 auto;
@@ -421,6 +450,7 @@ main {
     transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
 }
 
+/* 关于页面头部样式 */
 .about-header {
     text-align: center;
     margin-bottom: 40px;
@@ -432,6 +462,7 @@ main {
     color: var(--primary-color);
 }
 
+/* 关于页面内容样式 */
 .about-content {
     line-height: 1.8;
     color: var(--text-color);
@@ -446,7 +477,7 @@ main {
     margin-bottom: 1.5em;
 }
 
-/* 页脚 */
+/* 页脚样式 */
 footer {
     background-color: var(--card-background);
     padding: 20px 0;
@@ -454,6 +485,7 @@ footer {
     transition: background-color var(--transition-speed);
 }
 
+/* 页脚内容布局 */
 .footer-content {
     display: flex;
     flex-direction: column;
@@ -461,6 +493,7 @@ footer {
     justify-content: center;
 }
 
+/* 页脚链接样式 */
 .footer-links {
     display: flex;
     gap: 20px;
@@ -477,8 +510,9 @@ footer {
     color: var(--primary-color);
 }
 
-/* 响应式设计 */
+/* 响应式设计 - 移动端适配 */
 @media (max-width: 768px) {
+    /* 头部导航栏在移动端改为垂直布局 */
     .header-content {
         flex-direction: column;
         height: auto;
@@ -493,10 +527,12 @@ footer {
         margin-bottom: 15px;
     }
 
+    /* 文章卡片在移动端单列显示 */
     .post-grid {
         grid-template-columns: 1fr;
     }
 
+    /* 调整移动端的间距和字体大小 */
     .hero {
         padding: 40px 20px;
     }
