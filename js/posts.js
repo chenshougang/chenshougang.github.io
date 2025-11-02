@@ -3,8 +3,8 @@ const posts = [
     id: 1,
     excerpt: 'Boost.Asio介绍',
     title: 'Boost.Asio介绍',
-    // date: '2023-10-01',
-    date: new Date().toISOString().split('T')[0],
+    date: '2023-10-01',
+    // date: new Date().toISOString().split('T')[0],
     tags: ['C++', '网络编程'],
     file: '../articles/BoostAsio.md'
   },
