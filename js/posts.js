@@ -21,7 +21,7 @@ const posts = [
     id: 3,
     excerpt: '关于效率的思考',
     title: '关于效率的思考',
-    date: '2025年11月2日14:13:49',
+    date: '2025年11月2日',
     // date: new Date().toISOString().split('T')[0],
     tags: ['个人成长'],
     file: '../articles/Efficiency.md'
@@ -30,7 +30,7 @@ const posts = [
     id: 4,
     excerpt: '设计模式介绍和案例',
     title: '设计模式',
-    date: '2025年11月2日14:14:01',
+    date: '2025年11月2日',
     // date: new Date().toISOString().split('T')[0],
     tags: ['C++', '设计模式'],
     file: '../articles/DesignPattern.md'
