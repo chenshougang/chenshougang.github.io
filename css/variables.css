@@ -3,7 +3,8 @@
     --primary-color: #3498db;    /* 主要强调色，用于重要元素和交互 */
     --secondary-color: #2ecc71;  /* 次要强调色，用于次要元素和悬停效果 */
     --text-color: #333;          /* 主要文本颜色 */
-    --background-color: #fff;    /* 页面背景色 */
+    /* --background-color: #fff;    页面背景色 */
+    --background-color:#1a1a1a;  /* 页面背景色 */
     --card-background: #f9f9f9;  /* 卡片背景色 */
     --border-color: #eaeaea;     /* 边框颜色 */
     --shadow-color: rgba(0, 0, 0, 0.1);  /* 阴影颜色 */
