@@ -1,0 +1,40 @@
+/* 响应式设计 - 移动端适配 */
+@media (max-width: 768px) {
+    /* 头部导航栏在移动端改为垂直布局 */
+    .header-content {
+        flex-direction: column;
+        height: auto;
+        padding: 15px 0;
+    }
+
+    .site-title {
+        margin-bottom: 15px;
+    }
+
+    nav ul {
+        margin-bottom: 15px;
+    }
+
+    /* 文章卡片在移动端单列显示 */
+    .post-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* 调整移动端的间距和字体大小 */
+    .hero {
+        padding: 40px 20px;
+    }
+
+    .hero h2 {
+        font-size: 2rem;
+    }
+
+    .article-container,
+    .about-container {
+        padding: 20px;
+    }
+
+    .article-title {
+        font-size: 2rem;
+    }
+}

@@ -1,0 +1,172 @@
+/* 文章详情页样式 */
+.article-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px var(--shadow-color);
+    padding: 40px;
+    transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+/* 文章头部样式 */
+.article-header {
+    margin-bottom: 30px;
+}
+
+.article-title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+/* 文章元信息样式 */
+.article-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 20px;
+}
+
+.article-date {
+    display: flex;
+    align-items: center;
+}
+
+.article-date i {
+    margin-right: 5px;
+}
+
+/* 文章标签样式 */
+.article-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.article-tag {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+/* 文章内容样式 */
+.article-content {
+    line-height: 1.8;
+    color: var(--text-color);
+}
+
+/* 文章标题层级样式 */
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4,
+.article-content h5,
+.article-content h6 {
+    margin: 1.5em 0 0.5em;
+    color: var(--text-color);
+}
+
+/* 文章段落样式 */
+.article-content p {
+    margin-bottom: 1.5em;
+}
+
+/* 文章图片样式 */
+.article-content img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+/* 代码块样式 */
+.article-content pre {
+    background-color: var(--background-color);
+    border-radius: 4px;
+    padding: 15px;
+    overflow-x: auto;
+    margin: 20px 0;
+}
+
+/* 行内代码样式 */
+.article-content code {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* 引用块样式 */
+.article-content blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding-left: 20px;
+    margin: 20px 0;
+    font-style: italic;
+    color: var(--text-color);
+}
+
+/* 列表样式 */
+.article-content ul,
+.article-content ol {
+    margin: 20px 0;
+    padding-left: 20px;
+}
+
+/* 文章列表页头部样式 */
+.articles-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.articles-title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.articles-description {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    color: var(--text-color);
+}
+
+/* 关于页面样式 */
+.about-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px var(--shadow-color);
+    padding: 40px;
+    transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+/* 关于页面头部样式 */
+.about-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.about-title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+/* 关于页面内容样式 */
+.about-content {
+    line-height: 1.8;
+    color: var(--text-color);
+}
+
+.about-content h2 {
+    margin: 1.5em 0 0.5em;
+    color: var(--text-color);
+}
+
+.about-content p {
+    margin-bottom: 1.5em;
+}
