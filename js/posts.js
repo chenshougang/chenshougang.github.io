@@ -42,6 +42,6 @@ const posts = [
     date: '2025年11月4日',
     // date: new Date().toISOString().split('T')[0],
     tags: ['C++', '并发编程'],
-    file: '../articles/ThreadPool.md'
+    file: '../articles/线程池.md'
   }
 ];
