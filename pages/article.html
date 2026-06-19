@@ -28,20 +28,28 @@
         </header>
 
         <main>
-            <article class="article-container">
-                <header class="article-header">
-                    <h1 class="article-title" id="article-title">文章标题</h1>
-                    <div class="article-meta">
-                        <span class="article-date" id="article-date">发布日期</span>
-                        <div class="article-tags" id="article-tags">
-                            <!-- 标签将通过JavaScript动态加载 -->
+            <div class="article-layout">
+                <!-- 目录侧边栏 -->
+                <aside class="article-sidebar" id="toc-container" style="display: none;">
+                    <!-- 目录将通过JavaScript动态加载 -->
+                </aside>
+                
+                <!-- 文章主体 -->
+                <article class="article-container">
+                    <header class="article-header">
+                        <h1 class="article-title" id="article-title">文章标题</h1>
+                        <div class="article-meta">
+                            <span class="article-date"><i class="fas fa-calendar-alt"></i> <span id="article-date">发布日期</span></span>
+                            <div class="article-tags" id="article-tags">
+                                <!-- 标签将通过JavaScript动态加载 -->
+                            </div>
                         </div>
+                    </header>
+                    <div class="article-content" id="article-content">
+                        <!-- 文章内容将通过JavaScript动态加载 -->
                     </div>
-                </header>
-                <div class="article-content" id="article-content">
-                    <!-- 文章内容将通过JavaScript动态加载 -->
-                </div>
-            </article>
+                </article>
+            </div>
         </main>
 
         <footer>

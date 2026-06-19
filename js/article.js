@@ -1,146 +1,166 @@
-// 异步加载Markdown文件内容
+// 异步加载 Markdown 文件内容
 async function loadMarkdownContent(filePath) {
-  try {
-    // 记录原始文件路径用于调试
-    console.log('Original file path:', filePath);
-    
-    // 获取当前页面URL用于路径计算
-    const currentUrl = window.location.href;
-    console.log('Current URL:', currentUrl);
-    
-    // 创建基础URL对象解析协议和域名
-    const baseUrl = new URL(currentUrl);
-    console.log('Base URL origin:', baseUrl.origin);
-    
-    // 多级路径处理逻辑开始
-    let absolutePath;
-    
-    // 处理以../开头的相对路径（指向根目录）
-    if (filePath.startsWith('../')) {
-      // 移除路径前缀并构建绝对路径
-      const pathWithoutPrefix = filePath.replace(/^\.\.\//, '');
-      absolutePath = new URL(pathWithoutPrefix, baseUrl.origin).href;
-    } 
-    // 处理绝对路径（以/开头）
-    else if (filePath.startsWith('/')) {
-      absolutePath = new URL(filePath, baseUrl.origin).href;
-    } 
-    // 处理相对当前页面的路径
-    else {
-      // 获取当前目录路径
-      const currentPath = baseUrl.pathname;
-      const currentDir = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
-      // 组合新的绝对路径
-      absolutePath = new URL(filePath, baseUrl.origin + currentDir).href;
-    }
-    
-    // 调试输出最终计算路径
-    console.log('Calculated absolute path:', absolutePath);
-    
-    // 优先尝试简化路径加载（针对/articles/目录的特殊处理）
-    if (filePath.startsWith('../articles/')) {
-      // 构建直接访问路径
-      const simplePath = '/articles/' + filePath.replace('../articles/', '');
-      console.log('Trying simplified path:', simplePath);
-      
-      try {
-        // 带缓存控制的fetch请求
-        const simpleResponse = await fetch(simplePath, {
-          headers: {
-            'Cache-Control': 'no-cache',  // 禁用缓存获取最新内容
-            'Pragma': 'no-cache'
-          }
+    try {
+        console.log('Loading file:', filePath);
+        
+        const currentUrl = window.location.href;
+        const baseUrl = new URL(currentUrl);
+        
+        let absolutePath;
+        if (filePath.startsWith('../')) {
+            const pathWithoutPrefix = filePath.replace(/^\.\.\//, '');
+            absolutePath = new URL(pathWithoutPrefix, baseUrl.origin).href;
+        } else if (filePath.startsWith('/')) {
+            absolutePath = new URL(filePath, baseUrl.origin).href;
+        } else {
+            const currentPath = baseUrl.pathname;
+            const currentDir = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
+            absolutePath = new URL(filePath, baseUrl.origin + currentDir).href;
+        }
+        
+        if (filePath.startsWith('../articles/')) {
+            const simplePath = '/articles/' + filePath.replace('../articles/', '');
+            try {
+                const simpleResponse = await fetch(simplePath, {
+                    headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
+                });
+                if (simpleResponse.ok) {
+                    return await simpleResponse.text();
+                }
+            } catch (e) {
+                console.log('Simple path failed, trying absolute');
+            }
+        }
+        
+        const response = await fetch(absolutePath, {
+            headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
         });
         
-        if (simpleResponse.ok) {
-          // 成功加载Markdown内容
-          const markdown = await simpleResponse.text();
-          console.log('Markdown loaded successfully using simplified path');
-          return markdown;
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }
-      } catch (simpleError) {
-        console.log('Failed to load with simplified path, trying absolute path');
-      }
-    }
-    
-    // 主加载路径（使用计算出的绝对路径）
-    const response = await fetch(absolutePath, {
-      headers: {
-        'Cache-Control': 'no-cache',
-        'Pragma': 'no-cache'
-      }
-    });
-    
-    // 处理HTTP错误状态
-    if (!response.ok) {
-      throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
-    }
-    
-    // 返回解析的Markdown文本
-    const markdown = await response.text();
-    return markdown;
-  } catch (error) {
-    // 错误处理流程开始
-    console.error('Error loading markdown file:', error);
-    
-    // 备用加载方案（直接使用根路径）
-    try {
-      const fallbackPath = filePath.replace(/^\.\.\//, '');
-      const fallbackUrl = new URL(fallbackPath, window.location.origin).href;
-      
-      const fallbackResponse = await fetch(fallbackUrl, {
-        headers: {
-          'Cache-Control': 'no-cache',
-          'Pragma': 'no-cache'
+        
+        return await response.text();
+    } catch (error) {
+        console.error('Error loading markdown:', error);
+        
+        try {
+            const fallbackPath = filePath.replace(/^\.\.\//, '');
+            const fallbackUrl = new URL(fallbackPath, window.location.origin).href;
+            const fallbackResponse = await fetch(fallbackUrl, {
+                headers: { 'Cache-Control': 'no-cache', 'Pragma': 'no-cache' }
+            });
+            if (fallbackResponse.ok) {
+                return await fallbackResponse.text();
+            }
+        } catch (e) {
+            console.error('Fallback also failed:', e);
         }
-      });
-      
-      if (fallbackResponse.ok) {
-        return await fallbackResponse.text();
-      }
-    } catch (fallbackError) {
-      console.error('Fallback method also failed:', fallbackError);
+        
+        alert('无法加载文章内容，请检查网络或文件路径');
+        return '';
     }
-    
-    // 最终错误提示
-    alert(`无法加载文章内容: ${error.message}\n请检查控制台获取详细错误信息`);
-    return '';
-  }
 }
 
-// 渲染Markdown内容并启用代码高亮
+// 从 Markdown 中提取目录
+function extractTOC(markdown) {
+    const headings = [];
+    const lines = markdown.split('\n');
+    
+    lines.forEach(line => {
+        const match = line.match(/^(#{1,6})\s+(.+)$/);
+        if (match) {
+            const level = match[1].length;
+            const text = match[2].trim();
+            const id = text.toLowerCase()
+                .replace(/[^\w\u4e00-\u9fa5]/g, '-')
+                .replace(/-+/g, '-')
+                .replace(/^-|-$/g, '');
+            
+            headings.push({ level, text, id });
+        }
+    });
+    
+    return headings;
+}
+
+// 渲染目录
+function renderTOC(toc) {
+    const container = document.getElementById('toc-container');
+    if (!container || toc.length === 0) {
+        if (container) container.style.display = 'none';
+        return;
+    }
+    
+    let html = '<h3><i class="fas fa-list"></i> 目录</h3><nav class="toc-nav">';
+    
+    toc.forEach(heading => {
+        const indent = (heading.level - 1) * 16;
+        html += `<a href="#${heading.id}" class="toc-link" style="padding-left: ${indent}px;">${heading.text}</a>`;
+    });
+    
+    html += '</nav>';
+    container.innerHTML = html;
+    container.style.display = 'block';
+    
+    container.querySelectorAll('.toc-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href').substring(1);
+            const target = document.getElementById(targetId);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+}
+
+// 渲染 Markdown 内容并启用代码高亮
 function renderMarkdown(content) {
-  const container = document.getElementById('article-content');
-  if (container) {
-    // 使用marked库解析Markdown
+    const container = document.getElementById('article-content');
+    if (!container) return;
+    
     container.innerHTML = marked.parse(content);
-    // 启用highlight.js代码高亮
     hljs.highlightAll();
-  }
+    
+    const headings = container.querySelectorAll('h1, h2, h3, h4, h5, h6');
+    headings.forEach(heading => {
+        const id = heading.textContent.toLowerCase()
+            .replace(/[^\w\u4e00-\u9fa5]/g, '-')
+            .replace(/-+/g, '-')
+            .replace(/^-|-$/g, '');
+        heading.id = id;
+    });
 }
 
 // 初始化文章页面
 async function initArticle() {
-  // 从URL参数获取文章ID
-  const params = new URLSearchParams(window.location.search);
-  const postId = params.get('id');
-  
-  // 在posts数组中查找对应文章
-  const post = posts.find(p => p.id === parseInt(postId));
-  if (post) {
-    // 绑定文章元数据到页面元素
-    document.getElementById('article-title').textContent = post.title;
-    document.getElementById('article-date').textContent = post.date;
-    document.getElementById('article-tags').innerHTML = 
-      post.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+    const params = new URLSearchParams(window.location.search);
+    const postId = params.get('id');
     
-    // 加载并渲染内容
-    const content = post.file ? 
-      await loadMarkdownContent(post.file) : 
-      post.content;
+    const post = posts.find(p => p.id === parseInt(postId));
+    if (!post) {
+        document.querySelector('.article-container').innerHTML = `
+            <div class="empty-state" style="text-align: center; padding: 60px 20px;">
+                <i class="fas fa-exclamation-circle" style="font-size: 4rem; margin-bottom: 16px; opacity: 0.5; color: var(--text-muted);"></i>
+                <p style="color: var(--text-muted);">文章不存在</p>
+                <a href="../index.html" class="btn" style="margin-top: 20px; display: inline-block;">返回首页</a>
+            </div>
+        `;
+        return;
+    }
+    
+    document.getElementById('article-title').textContent = post.title;
+    document.getElementById('article-date').textContent = formatDate(post.date);
+    document.getElementById('article-tags').innerHTML = 
+        post.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+    
+    const content = post.file ? await loadMarkdownContent(post.file) : post.content;
+    
+    const toc = extractTOC(content);
+    renderTOC(toc);
+    
     renderMarkdown(content);
-  }
 }
 
-// 页面加载完成后初始化
 window.addEventListener('load', initArticle);

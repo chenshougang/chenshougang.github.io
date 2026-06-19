@@ -1,40 +1,118 @@
 /* 响应式设计 - 移动端适配 */
 @media (max-width: 768px) {
+    /* 容器调整 */
+    .container {
+        padding: 0 16px;
+    }
+
     /* 头部导航栏在移动端改为垂直布局 */
     .header-content {
         flex-direction: column;
         height: auto;
-        padding: 15px 0;
+        padding: 16px 0;
+        gap: 16px;
     }
 
     .site-title {
-        margin-bottom: 15px;
+        margin-bottom: 0;
+        font-size: 1.25rem;
     }
 
     nav ul {
-        margin-bottom: 15px;
+        margin-bottom: 0;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    nav ul li a {
+        padding: 8px 14px;
+        font-size: 0.9rem;
     }
 
     /* 文章卡片在移动端单列显示 */
     .post-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
 
     /* 调整移动端的间距和字体大小 */
     .hero {
-        padding: 40px 20px;
+        padding: 40px 16px;
     }
 
     .hero h2 {
-        font-size: 2rem;
+        font-size: 1.75rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
     }
 
     .article-container,
     .about-container {
-        padding: 20px;
+        padding: 24px 16px;
     }
 
     .article-title {
-        font-size: 2rem;
+        font-size: 1.75rem;
+    }
+
+    .article-content {
+        font-size: 1rem;
+    }
+
+    .articles-title {
+        font-size: 1.75rem;
+    }
+
+    .about-title {
+        font-size: 1.75rem;
+    }
+
+    /* 筛选标签适配 */
+    .filter-container {
+        gap: 8px;
+    }
+
+    .filter-tag {
+        padding: 8px 14px;
+        font-size: 0.85rem;
+    }
+
+    /* 回到顶部按钮位置 */
+    .back-to-top {
+        right: 16px;
+        bottom: 16px;
+        width: 44px;
+        height: 44px;
+    }
+}
+
+/* 平板适配 */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .post-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 小屏幕手机适配 */
+@media (max-width: 480px) {
+    .hero h2 {
+        font-size: 1.5rem;
+    }
+
+    .article-title {
+        font-size: 1.5rem;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+
+    nav ul li a {
+        padding: 6px 12px;
+        font-size: 0.85rem;
     }
 }

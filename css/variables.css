@@ -1,26 +1,62 @@
 /* 全局CSS变量定义 - 用于统一管理网站的颜色、尺寸和过渡效果 */
 :root {
-    --primary-color: #3498db;    /* 主要强调色，用于重要元素和交互 */
-    --secondary-color: #2ecc71;  /* 次要强调色，用于次要元素和悬停效果 */
-    --text-color: #333;          /* 主要文本颜色 */
-    --background-color: #fff;    /* 页面背景色 */
-    /* --background-color:#1a1a1a;  页面背景色 */
-    --card-background: #f9f9f9;  /* 卡片背景色 */
-    --border-color: #eaeaea;     /* 边框颜色 */
-    --shadow-color: rgba(0, 0, 0, 0.1);  /* 阴影颜色 */
-    --header-height: 60px;       /* 头部导航栏高度 */
-    --footer-height: 60px;       /* 页脚高度 */
-    --transition-speed: 0.3s;    /* 过渡动画持续时间 */
-    --container-width: 1200px;   /* 内容容器最大宽度 */
+    /* 主色调 - 专业蓝紫色系 */
+    --primary-color: #6366f1;              /* 主要强调色，用于重要元素和交互 */
+    --primary-hover: #4f46e5;              /* 主色悬停 */
+    --primary-light: #a5b4fc;              /* 主色浅色调 */
+    --secondary-color: #8b5cf6;            /* 次要强调色，用于次要元素和悬停效果 */
+    --accent-color: #06b6d4;               /* 点缀色 */
+    
+    /* 文本颜色 */
+    --text-color: #1e293b;                 /* 主要文本颜色 */
+    --text-secondary: #64748b;             /* 次要文本 */
+    --text-muted: #94a3b8;                 /* 辅助文本 */
+    
+    /* 背景颜色 */
+    --background-color: #f8fafc;           /* 页面背景色 */
+    --card-background: #ffffff;            /* 卡片背景色 */
+    --card-hover: #f1f5f9;                 /* 卡片悬停背景 */
+    
+    /* 边框和阴影 */
+    --border-color: #e2e8f0;               /* 边框颜色 */
+    --border-light: #f1f5f9;               /* 浅色边框 */
+    --shadow-color: rgba(0, 0, 0, 0.04);   /* 阴影颜色 */
+    --shadow-lg: rgba(0, 0, 0, 0.08);      /* 大阴影 */
+    
+    /* 布局尺寸 */
+    --header-height: 70px;                 /* 头部导航栏高度 */
+    --footer-height: 80px;                 /* 页脚高度 */
+    --container-width: 1200px;             /* 内容容器最大宽度 */
+    --radius-sm: 6px;                      /* 小圆角 */
+    --radius-md: 12px;                     /* 中圆角 */
+    --radius-lg: 16px;                     /* 大圆角 */
+    
+    /* 动画过渡 */
+    --transition-speed: 0.3s;              /* 过渡动画持续时间 */
+    --transition-fast: 0.15s;              /* 快速过渡 */
 }
 
 /* 暗色主题变量 - 通过data-theme属性切换 */
 [data-theme="dark"] {
-    --primary-color: #3498db;    /* 保持主色调一致 */
-    --secondary-color: #2ecc71;  /* 保持次要色调一致 */
-    --text-color: #f5f5f5;       /* 亮色文本，提高暗色主题下的可读性 */
-    --background-color: #1a1a1a; /* 深色背景 */
-    --card-background: #2d2d2d;  /* 深色卡片背景 */
-    --border-color: #444;        /* 深色边框 */
-    --shadow-color: rgba(0, 0, 0, 0.3); /* 加深阴影效果 */
+    --primary-color: #818cf8;              /* 亮色主色调 */
+    --primary-hover: #6366f1;              /* 主色悬停 */
+    --primary-light: #312e81;              /* 主色深色调 */
+    --secondary-color: #a78bfa;            /* 次要强调色 */
+    --accent-color: #22d3ee;               /* 点缀色 */
+    
+    /* 文本颜色 */
+    --text-color: #f1f5f9;                 /* 主要文本颜色 */
+    --text-secondary: #cbd5e1;             /* 次要文本 */
+    --text-muted: #94a3b8;                 /* 辅助文本 */
+    
+    /* 背景颜色 */
+    --background-color: #0f172a;           /* 深色背景 */
+    --card-background: #1e293b;            /* 深色卡片背景 */
+    --card-hover: #334155;                 /* 卡片悬停背景 */
+    
+    /* 边框和阴影 */
+    --border-color: #334155;               /* 深色边框 */
+    --border-light: #1e293b;               /* 深色浅色边框 */
+    --shadow-color: rgba(0, 0, 0, 0.3);    /* 阴影颜色 */
+    --shadow-lg: rgba(0, 0, 0, 0.4);       /* 大阴影 */
 }
