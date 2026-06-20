@@ -1,26 +1,44 @@
 <!DOCTYPE html>
+<!-- 文档类型声明：告诉浏览器这是一个 HTML5 文档 -->
 <html lang="zh-CN">
+<!-- 根元素：设置网页主要语言为简体中文 -->
 <head>
+    <!-- 头部区域：包含网页元信息和资源引用 -->
     <meta charset="UTF-8">
+    <!-- 设置字符编码为 UTF-8，支持中文显示 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 视口设置：使网页在移动设备上正确缩放 -->
     <title>文章详情-我的博客</title>
+    <!-- 网页标题：显示在浏览器标签页上 -->
+    
+    <!-- 引入主样式表 -->
     <link rel="stylesheet" href="../css/style.css">
+    <!-- 引入代码高亮样式（GitHub 主题） -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/styles/github.min.css">
+    <!-- 引入 Font Awesome 图标库 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- 页面主体内容 -->
     <div class="container">
+        <!-- 容器：包裹整个页面内容 -->
         <header>
+            <!-- 页头区域：包含网站标题和导航 -->
             <div class="header-content">
+                <!-- 页头内容容器 -->
                 <h1 class="site-title">我的博客</h1>
+                <!-- 网站标题 -->
                 <nav>
+                    <!-- 导航菜单 -->
                     <ul>
+                        <!-- 无序列表：用于导航项 -->
                         <li><a href="../index.html">首页</a></li>
                         <li><a href="articles.html">文章</a></li>
                         <li><a href="about.html">关于</a></li>
                     </ul>
                 </nav>
                 <button id="theme-toggle" aria-label="切换主题">
+                    <!-- 主题切换按钮 -->
                     <i class="fas fa-sun sun-icon"></i>
                     <i class="fas fa-moon moon-icon"></i>
                 </button>
@@ -28,24 +46,38 @@
         </header>
 
         <main>
+            <!-- 主要内容区域 -->
             <div class="article-layout">
+                <!-- 文章布局容器：侧边栏 + 主体 -->
+                
                 <!-- 目录侧边栏 -->
                 <aside class="article-sidebar" id="toc-container" style="display: none;">
+                    <!-- 目录容器：通过 JavaScript 动态生成目录 -->
                     <!-- 目录将通过JavaScript动态加载 -->
                 </aside>
                 
                 <!-- 文章主体 -->
                 <article class="article-container">
+                    <!-- 文章容器 -->
                     <header class="article-header">
+                        <!-- 文章头部：标题、日期、标签 -->
                         <h1 class="article-title" id="article-title">文章标题</h1>
+                        <!-- 文章标题 -->
                         <div class="article-meta">
-                            <span class="article-date"><i class="fas fa-calendar-alt"></i> <span id="article-date">发布日期</span></span>
+                            <!-- 文章元信息区域 -->
+                            <span class="article-date">
+                                <!-- 日期显示区域 -->
+                                <i class="fas fa-calendar-alt"></i> 
+                                <span id="article-date-text">发布日期</span>
+                            </span>
                             <div class="article-tags" id="article-tags">
+                                <!-- 文章标签容器 -->
                                 <!-- 标签将通过JavaScript动态加载 -->
                             </div>
                         </div>
                     </header>
                     <div class="article-content" id="article-content">
+                        <!-- 文章内容容器 -->
                         <!-- 文章内容将通过JavaScript动态加载 -->
                     </div>
                 </article>
@@ -53,25 +85,37 @@
         </main>
 
         <footer>
+            <!-- 页脚区域 -->
             <div class="footer-content">
+                <!-- 页脚内容容器 -->
                 <div class="footer-links">
+                    <!-- 社交链接区域 -->
                     <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
                     <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
                     <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
                 </div>
                 <p>&copy; <span id="current-year"></span> 我的博客. 保留所有权利.</p>
+                <!-- 版权信息：通过 JavaScript 自动更新年份 -->
             </div>
         </footer>
     </div>
 
+    <!-- 引入 Marked 库：用于解析 Markdown -->
     <script src="https://cdn.jsdelivr.net/npm/marked@9.0.0/marked.min.js"></script>
+    <!-- 引入 Highlight.js 核心库：用于代码高亮 -->
     <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/core.min.js"></script>
+    <!-- 引入各种编程语言的高亮支持 -->
     <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/languages/javascript.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/languages/python.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/languages/css.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/languages/html.min.js"></script>
+    
+    <!-- 引入自定义脚本 -->
     <script src="../js/main.js"></script>
+    <!-- 主脚本：主题切换、工具函数等 -->
     <script src="../js/posts.js"></script>
+    <!-- 文章数据：包含所有文章信息 -->
     <script src="../js/article.js"></script>
+    <!-- 文章详情页脚本：加载和渲染文章 -->
 </body>
 </html>

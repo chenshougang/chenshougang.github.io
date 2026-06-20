@@ -1,15 +1,21 @@
 <!DOCTYPE html>
+<!-- 文章列表页面 -->
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>文章列表 - 我的博客</title>
+    
+    <!-- 引入主样式表 -->
     <link rel="stylesheet" href="../css/style.css">
+    <!-- 引入代码高亮样式 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/styles/github.min.css">
+    <!-- 引入 Font Awesome 图标库 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
+        <!-- 头部导航 -->
         <header>
             <div class="header-content">
                 <h1 class="site-title">我的博客</h1>
@@ -20,6 +26,7 @@
                         <li><a href="about.html">关于</a></li>
                     </ul>
                 </nav>
+                <!-- 主题切换按钮 -->
                 <button id="theme-toggle" aria-label="切换主题">
                     <i class="fas fa-sun sun-icon"></i>
                     <i class="fas fa-moon moon-icon"></i>
@@ -27,7 +34,9 @@
             </div>
         </header>
 
+        <!-- 主要内容区域 -->
         <main>
+            <!-- 页面标题区域 -->
             <section class="articles-header">
                 <h2 class="articles-title">所有文章</h2>
                 <p class="articles-description">这里是我所有的文章，记录了我的思考和学习过程。</p>
@@ -39,18 +48,20 @@
                 <input type="text" id="search-input" class="search-input" placeholder="搜索文章标题、内容或标签...">
             </div>
 
-            <!-- 标签筛选 -->
+            <!-- 标签筛选按钮 -->
             <div class="filter-container" id="filter-container">
-                <!-- 筛选标签将通过JavaScript动态加载 -->
+                <!-- 筛选按钮将通过 JavaScript 动态生成 -->
             </div>
 
+            <!-- 文章列表区域 -->
             <section class="articles-list">
                 <div class="post-grid" id="all-posts-container">
-                    <!-- 文章将通过JavaScript动态加载 -->
+                    <!-- 文章卡片将通过 JavaScript 动态生成 -->
                 </div>
             </section>
         </main>
 
+        <!-- 页脚 -->
         <footer>
             <div class="footer-content">
                 <div class="footer-links">
@@ -63,12 +74,15 @@
         </footer>
     </div>
 
+    <!-- 引入第三方库 -->
     <script src="https://cdn.jsdelivr.net/npm/marked@9.0.0/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/core.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/languages/javascript.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/languages/python.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/languages/css.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/languages/html.min.js"></script>
+    
+    <!-- 引入自定义脚本 -->
     <script src="../js/main.js"></script>
     <script src="../js/posts.js"></script>
     <script src="../js/articles.js"></script>
