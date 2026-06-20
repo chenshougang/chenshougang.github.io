@@ -20,7 +20,7 @@ const posts = [
         title: "Boost.Asio介绍",
         date: "2023-10-01",
         tags: ["C++", "网络编程"],
-        file: "../articles/Boost.Asio.md"
+        file: "../articles/boost/Boost.Asio.md"
     },
     {
         id: 2,

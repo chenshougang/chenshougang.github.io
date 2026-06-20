@@ -28,14 +28,14 @@ function generateNewPost(options) {
     // 获取当前最大ID
     const maxId = posts.length > 0 ? Math.max(...posts.map(p => p.id)) : 0;
     const newId = maxId + 1;
-    
+
     // 生成文件名（基于标题）
     const fileName = options.title
         .toLowerCase()
         .replace(/[^\w\u4e00-\u9fa5]/g, '-')
         .replace(/-+/g, '-')
         .replace(/^-|-$/g, '') + '.md';
-    
+
     const newPost = {
         id: newId,
         title: options.title,
@@ -44,7 +44,7 @@ function generateNewPost(options) {
         tags: options.tags || [],
         file: '../articles/' + fileName
     };
-    
+
     console.log('=== 新文章数据 ===');
     console.log('请将以下代码添加到 js/posts.js 的 posts 数组末尾：');
     console.log('');
@@ -57,7 +57,7 @@ function generateNewPost(options) {
     console.log(`# ${options.title}`);
     console.log('');
     console.log('在这里写你的文章内容...');
-    
+
     return newPost;
 }
 
@@ -70,12 +70,12 @@ function interactiveAddPost() {
         console.log('已取消');
         return;
     }
-    
+
     const excerpt = prompt('请输入文章摘要（可选）：', title);
     const tagsInput = prompt('请输入标签（多个标签用逗号分隔）：');
     const tags = tagsInput ? tagsInput.split(',').map(t => t.trim()).filter(t => t) : [];
     const date = prompt('请输入日期（可选，格式：YYYY-MM-DD）：', postTemplate.date);
-    
+
     generateNewPost({
         title,
         excerpt: excerpt || title,
@@ -88,7 +88,7 @@ function interactiveAddPost() {
 if (typeof window !== 'undefined') {
     window.generateNewPost = generateNewPost;
     window.interactiveAddPost = interactiveAddPost;
-    
+
     console.log('=== 文章添加工具已加载 ===');
     console.log('使用方法：');
     console.log('1. interactiveAddPost() - 交互式添加文章');
