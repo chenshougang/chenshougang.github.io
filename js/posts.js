@@ -19,6 +19,21 @@
 
 const posts = [
     {
+        // id: 5,
+        // slug: "thread-pool",
+        // title: "线程池",
+        // excerpt: "线程池的基本组成，以及具体场景下的使用方式与注意事项。",
+        // date: "2025-11-04",
+        // tags: ["C++", "并发编程"],
+        id: 6,
+        slug: "",
+        title: "前沿部署工程师",
+        date: "2026-11-10",
+        tags: ["LLM", "大模型"],
+        excerpt: "前沿部署工程师基本介绍",
+        file: "../articles/LLM/前沿部署工程师.md"
+    },
+    {
         id: 5,
         slug: "thread-pool",
         title: "线程池",
