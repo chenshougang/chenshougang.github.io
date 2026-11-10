@@ -5,32 +5,60 @@
 
 /**
  * 加载 Markdown 文件
+ * 依次尝试：相对当前页面的路径 → 相对站点根目录的路径
+ * 并拒绝 HTML 响应（防止服务器把 Markdown 当成页面处理）
  * @param {string} filePath
- * @returns {Promise<string>}
+ * @returns {Promise<string|null>}
  */
 async function loadMarkdownContent(filePath) {
+    const pageUrl = new URL(window.location.href);
     const candidates = [];
 
-    if (filePath.indexOf('../articles/') === 0) {
-        candidates.push('/articles/' + filePath.slice('../articles/'.length));
+    const addCandidate = (url) => {
+        if (url && candidates.indexOf(url) === -1) candidates.push(url);
+    };
+
+    // 1. 相对当前页面解析：用户站与 GitHub Pages 项目站都正确
+    addCandidate(new URL(filePath, pageUrl.href).href);
+
+    // 2. 相对站点根目录解析：去掉 ../ 后拼到 /pages/ 的上一级
+    const siteRootMatch = pageUrl.pathname.match(/^(.*\/)pages\/[^/]*$/);
+    if (siteRootMatch && filePath.indexOf('../') === 0) {
+        addCandidate(pageUrl.origin + siteRootMatch[1] + filePath.replace(/^\.\.\//, ''));
     }
-    candidates.push(new URL(filePath, window.location.href).href);
+
+    // 3. 兼容以站点根目录为基准的写法
+    if (filePath.indexOf('../articles/') === 0) {
+        addCandidate(pageUrl.origin + '/' + filePath.replace(/^\.\.\//, ''));
+    }
 
     let lastError = null;
 
     for (let i = 0; i < candidates.length; i++) {
         try {
             const response = await fetch(candidates[i], { cache: 'no-cache' });
-            if (response.ok) {
-                return await response.text();
+            if (!response.ok) {
+                lastError = new Error(`HTTP ${response.status} @ ${candidates[i]}`);
+                continue;
             }
-            lastError = new Error(`HTTP ${response.status}`);
+
+            const text = await response.text();
+            const head = text.trimStart().slice(0, 200).toLowerCase();
+
+            // Jekyll 等静态站点生成器会把带 front matter 的 .md 转成 HTML
+            if (head.indexOf('<!doctype html') === 0 || head.indexOf('<html') === 0) {
+                lastError = new Error(`服务器返回了 HTML 而不是 Markdown @ ${candidates[i]}`);
+                continue;
+            }
+
+            return text;
         } catch (error) {
             lastError = error;
         }
     }
 
     console.error('加载 Markdown 失败:', filePath, lastError);
+    console.error('已尝试的地址:', candidates);
     return null;
 }
 
@@ -318,7 +346,11 @@ async function initArticle() {
                 <div class="empty-state">
                     <i class="fas fa-plug-circle-xmark"></i>
                     <p>文章内容加载失败</p>
-                    <a href="../index.html" class="btn" style="margin-top: 20px;">返回首页</a>
+                    <p style="margin-top: 10px; font-size: 0.85rem; line-height: 1.8; color: var(--text-muted);">
+                        请检查 articles 目录中是否存在该文件（注意大小写）；<br>
+                        若部署在 GitHub Pages，请确保仓库根目录保留了 <code>.nojekyll</code> 文件。
+                    </p>
+                    <a href="articles.html" class="btn" style="margin-top: 20px;">返回文章列表</a>
                 </div>
             `;
         }

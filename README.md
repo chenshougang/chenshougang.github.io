@@ -201,6 +201,7 @@ chenshougang.github.io/
 ├── .vscode/
 │   ├── settings.json
 │   └── tasks.json             # 文章相关任务
+├── .nojekyll                  # 关闭 GitHub Pages 的 Jekyll（必须保留）
 └── README.md                  # 项目说明与写作指南（唯一文档）
 ```
 
@@ -397,9 +398,11 @@ articles/*.md (front matter)
 
 注意事项：
 
+- **仓库根目录必须保留 `.nojekyll` 空文件**。GitHub Pages 默认启用 Jekyll，会把带 front matter 的 `.md` 转换成 HTML，导致 `articles/xxx.md` 返回 404，文章页就会加载失败。`.nojekyll` 用于关闭该行为。
 - GitHub Pages 区分大小写，`file` 路径必须与真实文件名完全一致。
 - 中文文件名可用，浏览器会自动 URL 编码；链接建议使用英文 `slug`。
 - 部署的是静态文件，不需要在服务器上运行 PowerShell 脚本；索引在本地生成后提交即可。
+- 推送后等待 Pages 重新构建（1–2 分钟），并用 `Ctrl+F5` 强刷；404 可能被 CDN 短暂缓存。
 
 ---
 
@@ -409,7 +412,10 @@ articles/*.md (front matter)
 
 1. 用本地服务器访问，而不是 `file://` 直接打开；
 2. 检查 `js/posts.js` 中对应 `file` 路径与实际文件名大小写；
-3. 检查文章是否真的存在于 `articles/` 目录。
+3. 检查文章是否真的存在于 `articles/` 目录；
+4. 已部署到 GitHub Pages 时，确认根目录存在 `.nojekyll`，并打开开发者工具 Network 面板查看 `.md` 请求：
+   - 404：Jekyll 把 Markdown 转成了 `.html`，加 `.nojekyll` 后重新推送；
+   - 200 但类型为 `text/html`：同上，前端已会拦截这种响应并提示加载失败。
 
 ### 新文章没有出现在列表里
 

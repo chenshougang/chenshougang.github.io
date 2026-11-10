@@ -286,6 +286,10 @@ $lines.Add('')
 
 [System.IO.File]::WriteAllText($outputFile, ($lines -join "`r`n"), (New-Object System.Text.UTF8Encoding($false)))
 
+if (-not (Test-Path -LiteralPath (Join-Path $Root '.nojekyll'))) {
+    Write-Warning '缺少 .nojekyll：GitHub Pages 会把带 front matter 的 Markdown 转成 HTML，导致文章打不开。'
+}
+
 Write-Host ("已生成文章索引: {0}" -f $outputFile) -ForegroundColor Green
 Write-Host ("共 {0} 篇文章" -f $count)
 foreach ($entry in $sorted) {
