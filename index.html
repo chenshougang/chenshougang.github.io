@@ -1,98 +1,192 @@
 <!DOCTYPE html>
-<!-- 文档类型声明，确保浏览器使用标准模式渲染 -->
 <html lang="zh-CN">
-<!-- 根元素，设置网站主要语言为简体中文 -->
 
 <head>
-  <!-- 头部开始：包含元信息和资源引用 -->
-  <meta charset="UTF-8">
-  <!-- 设置文档字符编码为UTF-8 -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- 移动端视口设置，适配响应式布局 -->
-  <title>陈守刚的个人网站</title>
-  <link rel="stylesheet" href="css/style.css">
-  <!-- 主样式表 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/styles/github.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="陈守刚的技术博客 - 机器视觉、深度学习与 C++ 工程实践">
+    <meta name="theme-color" content="#05070d">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d1320'/%3E%3Cpath d='M24 20 14 32l10 12M40 20l10 12-10 12' stroke='%2322d3ee' stroke-width='5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+    <title>CSG.DEV | 陈守刚的技术博客</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
 </head>
 
 <body>
-  <div class="container">
-    <header>
-      <div class="header-content">
-        <h1 class="site-title">我的博客</h1>
-        <nav>
-          <!-- 主导航菜单 -->
-          <ul>
-            <li><a href="index.html" class="active">首页</a></li>
-            <li><a href="pages/articles.html">文章</a></li>
-            <li><a href="pages/about.html">关于</a></li>
-          </ul>
-        </nav>
-        <button id="theme-toggle" aria-label="切换主题">
-          <i class="fas fa-sun sun-icon"></i>
-          <i class="fas fa-moon moon-icon"></i>
-        </button>
-      </div>
-    </header>
+    <!-- 动态背景层 -->
+    <div class="bg-layer" aria-hidden="true">
+        <canvas id="bg-canvas"></canvas>
+        <div class="bg-grid"></div>
+        <div class="bg-vignette"></div>
+    </div>
 
-    <main>
-      <!-- 页面主体内容区 -->
-      <section class="hero">
-        <h2>欢迎来到我的博客</h2>
-        <p id="info">这里记录我的工作、学习和生活</p>
-      </section>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <a href="index.html" class="site-title">
+                    <span class="logo-mark">&lt;/&gt;</span>
+                    <span class="logo-text">CSG<span class="dim">.DEV</span></span>
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" class="active">首页</a></li>
+                        <li><a href="pages/articles.html">文章</a></li>
+                        <li><a href="pages/about.html">关于</a></li>
+                    </ul>
+                </nav>
+                <button id="theme-toggle" type="button" aria-label="切换明暗主题">
+                    <i class="fas fa-sun sun-icon"></i>
+                    <i class="fas fa-moon moon-icon"></i>
+                </button>
+            </div>
+        </header>
 
-      <section class="featured-posts">
-        <h3>最新文章</h3>
-        <div class="post-grid" id="featured-posts-container">
-          <!-- 文章将通过JavaScript动态加载 -->
-        </div>
-        <div class="view-more">
-          <a href="pages/articles.html" class="btn">查看更多文章</a>
-        </div>
-      </section>
-      <section class="test-content">
-        <h3>测试内容</h3>
-        <p>这是一个测试段落。</p>
-        <button onclick="changeText()">点击切换</button>
-      </section>
-    </main>
+        <main>
+            <section class="hero">
+                <span class="hero-corner tl" aria-hidden="true"></span>
+                <span class="hero-corner tr" aria-hidden="true"></span>
+                <span class="hero-corner bl" aria-hidden="true"></span>
+                <span class="hero-corner br" aria-hidden="true"></span>
 
-    <footer>
-      <!-- 页脚区域 -->
-      <div class="footer-content">
-        <div class="footer-links">
-          <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
-          <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-          <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
-        </div>
-        <p>&copy; <span id="current-year"></span> 我的博客. 保留所有权利.</p>
-      </div>
-    </footer>
-  </div>
+                <div class="hero-badge">
+                    <span class="pulse-dot"></span>
+                    SYSTEM ONLINE // 机器视觉 · 深度学习
+                </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/marked@9.0.0/marked.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/core.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/languages/javascript.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/languages/python.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/languages/css.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/languages/html.min.js"></script>
-  <script src="js/main.js"></script>
-  <!-- 主交互脚本 -->
-  <script src="js/posts.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const featuredPostsContainer = document.getElementById('featured-posts-container');
-      if (featuredPostsContainer) {
-        posts.slice(-3).reverse().forEach(post => {
-          const postCard = createPostCard(post);
-          featuredPostsContainer.appendChild(postCard);
+                <h2 class="hero-title">
+                    <span class="gradient-text">在代码与像素之间<br>持续构建与记录</span>
+                </h2>
+
+                <p class="hero-subtitle" id="info"
+                    data-typewriter="这里记录我的工作、学习和生活|机器视觉 · 深度学习 · C++ 工程实践|把每一次调试，都变成可复用的经验"></p>
+
+                <div class="hero-actions">
+                    <a href="pages/articles.html" class="btn">
+                        <i class="fas fa-rocket"></i> 浏览文章
+                    </a>
+                    <a href="pages/about.html" class="btn btn-ghost">
+                        关于我 <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="hero-stat-value" id="stat-posts">0</span>
+                        <span class="hero-stat-label">Posts</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-value" id="stat-tags">0</span>
+                        <span class="hero-stat-label">Tags</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-value" id="stat-years">0</span>
+                        <span class="hero-stat-label">Years</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="featured-posts">
+                <div class="section-head">
+                    <h3><span class="section-index">01</span> 最新文章</h3>
+                    <a class="section-link" href="pages/articles.html">全部文章 →</a>
+                </div>
+                <p class="section-desc">// 最近更新的技术笔记与实践记录</p>
+
+                <div class="post-grid" id="featured-posts-container">
+                    <!-- 文章卡片由 JavaScript 动态渲染 -->
+                </div>
+
+                <div class="view-more">
+                    <a href="pages/articles.html" class="btn btn-ghost">
+                        查看全部文章 <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </section>
+
+            <section class="tech-section">
+                <div class="section-head">
+                    <h3><span class="section-index">02</span> 技术栈</h3>
+                    <a class="section-link" href="pages/about.html">了解更多 →</a>
+                </div>
+                <p class="section-desc">// 日常使用与持续探索的方向</p>
+
+                <div class="tech-marquee">
+                    <div class="tech-track">
+                        <span class="tech-chip"><i class="fas fa-eye"></i> OpenCV</span>
+                        <span class="tech-chip"><i class="fas fa-camera"></i> Halcon</span>
+                        <span class="tech-chip"><i class="fas fa-microchip"></i> CUDA</span>
+                        <span class="tech-chip"><i class="fas fa-brain"></i> YOLO</span>
+                        <span class="tech-chip"><i class="fas fa-layer-group"></i> U-Net</span>
+                        <span class="tech-chip"><i class="fas fa-code"></i> C++</span>
+                        <span class="tech-chip"><i class="fas fa-window-maximize"></i> C#</span>
+                        <span class="tech-chip"><i class="fab fa-python"></i> Python</span>
+                        <span class="tech-chip"><i class="fab fa-js"></i> JavaScript</span>
+                        <span class="tech-chip"><i class="fab fa-git-alt"></i> Git</span>
+                        <span class="tech-chip"><i class="fab fa-linux"></i> Linux</span>
+                        <span class="tech-chip"><i class="fas fa-database"></i> SQL</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="https://github.com/chenshougang" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="mailto:chenshougang1995@163.com" aria-label="邮箱">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="pages/about.html" aria-label="关于我">
+                        <i class="fas fa-user-astronaut"></i>
+                    </a>
+                </div>
+                <p>&copy; <span id="current-year"></span> CSG.DEV · 陈守刚</p>
+                <div class="footer-meta">
+                    <span><span class="status-dot"></span> SYSTEM ONLINE</span>
+                    <span>HTML / CSS / JAVASCRIPT</span>
+                    <span>GITHUB PAGES</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked@9.0.0/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/highlight.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/posts.js"></script>
+    <script src="js/effects.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const featuredPostsContainer = document.getElementById('featured-posts-container');
+            if (featuredPostsContainer) {
+                const latest = posts
+                    .slice()
+                    .sort((a, b) => new Date(b.date) - new Date(a.date))
+                    .slice(0, 3);
+                latest.forEach(post => {
+                    featuredPostsContainer.appendChild(createPostCard(post));
+                });
+            }
+
+            const setStat = (id, value) => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.setAttribute('data-count', value);
+                if (typeof window.animateCount === 'function') {
+                    window.animateCount(el);
+                } else {
+                    el.textContent = value;
+                }
+            };
+
+            setStat('stat-posts', posts.length);
+            setStat('stat-tags', getAllTags(posts).length);
+            setStat('stat-years', Math.max(1, new Date().getFullYear() - 2023));
         });
-      }
-    });
-  </script>
-
+    </script>
 </body>
 
 </html>

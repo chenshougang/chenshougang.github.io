@@ -1,4 +1,11 @@
-# 学习React Hooks
+---
+id: 2
+slug: react-hooks
+title: 学习 React Hooks
+date: 2023-10-01
+tags: [React, 前端]
+excerpt: useState、useEffect 与自定义 Hook 的实践笔记。
+---
 
 React Hooks是React 16.8引入的新特性，它允许你在不编写class的情况下使用state和其他React特性。
 

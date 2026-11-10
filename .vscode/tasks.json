@@ -1,0 +1,78 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "✍️ 新建文章",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\tools\\new-post.ps1",
+                "-Title",
+                "${input:postTitle}",
+                "-Tags",
+                "${input:postTags}"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            }
+        },
+        {
+            "label": "✍️ 新建文章（仅标题）",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\tools\\new-post.ps1",
+                "-Title",
+                "${input:postTitle}"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            }
+        },
+        {
+            "label": "🔄 生成文章索引",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}\\tools\\build-posts.ps1"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            }
+        }
+    ],
+    "inputs": [
+        {
+            "id": "postTitle",
+            "type": "promptString",
+            "description": "文章标题"
+        },
+        {
+            "id": "postTags",
+            "type": "promptString",
+            "description": "标签（英文或中文逗号分隔，可留空）",
+            "default": ""
+        }
+    ]
+}

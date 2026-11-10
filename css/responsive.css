@@ -1,118 +1,221 @@
-/* 响应式设计 - 移动端适配 */
+/* 响应式适配 */
+
+/* ============ 平板 ============ */
+@media (max-width: 1024px) {
+    .article-layout {
+        flex-direction: column;
+    }
+
+    .article-sidebar {
+        position: static;
+        width: 100%;
+        max-height: none;
+    }
+
+    .post-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* ============ 移动端 ============ */
 @media (max-width: 768px) {
-    /* 容器调整 */
     .container {
         padding: 0 16px;
     }
 
-    /* 头部导航栏在移动端改为垂直布局 */
+    header {
+        margin: 0 -16px;
+        padding: 0 16px;
+    }
+
     .header-content {
-        flex-direction: column;
         height: auto;
-        padding: 16px 0;
-        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+        padding: 14px 0;
     }
 
     .site-title {
-        margin-bottom: 0;
-        font-size: 1.25rem;
+        font-size: 1.1rem;
     }
 
     nav ul {
-        margin-bottom: 0;
-        gap: 8px;
+        gap: 4px;
         flex-wrap: wrap;
         justify-content: center;
     }
 
     nav ul li a {
-        padding: 8px 14px;
-        font-size: 0.9rem;
+        padding: 7px 12px;
+        font-size: 0.8rem;
     }
 
-    /* 文章卡片在移动端单列显示 */
+    main {
+        padding: 32px 0;
+    }
+
+    /* 英雄区 */
+    .hero {
+        padding: 52px 18px 40px;
+        margin-bottom: 44px;
+        border-radius: var(--radius-lg);
+    }
+
+    .hero h2,
+    .hero .hero-title {
+        font-size: 1.75rem;
+    }
+
+    .hero-subtitle,
+    .hero p {
+        font-size: 0.95rem;
+    }
+
+    .hero-actions {
+        margin-top: 28px;
+    }
+
+    .hero-stats {
+        margin-top: 36px;
+    }
+
+    .hero-stat {
+        padding: 15px 8px;
+    }
+
+    .hero-stat-value {
+        font-size: 1.4rem;
+    }
+
+    .hero-stat-label {
+        font-size: 0.62rem;
+        letter-spacing: 0.1em;
+    }
+
+    .hero-corner {
+        width: 16px;
+        height: 16px;
+    }
+
+    /* 区块标题 */
+    .section-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .section-head h3 {
+        font-size: 1.2rem;
+    }
+
     .post-grid {
         grid-template-columns: 1fr;
         gap: 20px;
     }
 
-    /* 调整移动端的间距和字体大小 */
-    .hero {
-        padding: 40px 16px;
-    }
-
-    .hero h2 {
+    /* 页面标题 */
+    .articles-title,
+    .page-title {
         font-size: 1.75rem;
     }
 
-    .hero p {
-        font-size: 1rem;
+    .articles-description,
+    .page-description {
+        font-size: 0.95rem;
     }
 
+    /* 文章与关于页 */
     .article-container,
     .about-container {
-        padding: 24px 16px;
+        padding: 26px 18px;
+        border-radius: var(--radius-lg);
     }
 
     .article-title {
-        font-size: 1.75rem;
+        font-size: 1.55rem;
     }
 
     .article-content {
-        font-size: 1rem;
+        font-size: 0.98rem;
     }
 
-    .articles-title {
-        font-size: 1.75rem;
+    .article-content pre {
+        padding: 16px;
     }
 
-    .about-title {
-        font-size: 1.75rem;
+    .article-content pre code {
+        font-size: 0.8rem;
     }
 
-    /* 筛选标签适配 */
+    .article-meta {
+        gap: 12px;
+        font-size: 0.74rem;
+    }
+
+    .about-container {
+        padding: 32px 18px;
+    }
+
+    /* 筛选 */
     .filter-container {
-        gap: 8px;
+        gap: 7px;
     }
 
     .filter-tag {
-        padding: 8px 14px;
-        font-size: 0.85rem;
+        padding: 7px 13px;
+        font-size: 0.76rem;
     }
 
-    /* 回到顶部按钮位置 */
+    /* 回到顶部 */
     .back-to-top {
         right: 16px;
         bottom: 16px;
         width: 44px;
         height: 44px;
     }
-}
 
-/* 平板适配 */
-@media (min-width: 769px) and (max-width: 1024px) {
-    .post-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .toast {
+        bottom: 76px;
+        max-width: calc(100vw - 32px);
     }
 }
 
-/* 小屏幕手机适配 */
+/* ============ 小屏手机 ============ */
 @media (max-width: 480px) {
-    .hero h2 {
+    .hero h2,
+    .hero .hero-title {
         font-size: 1.5rem;
     }
 
     .article-title {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
     }
 
     .btn {
-        padding: 10px 20px;
-        font-size: 0.95rem;
+        padding: 11px 22px;
+        font-size: 0.82rem;
     }
 
-    nav ul li a {
-        padding: 6px 12px;
-        font-size: 0.85rem;
+    .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+    }
+
+    .about-avatar {
+        width: 84px;
+        height: 84px;
+        font-size: 1.35rem;
+    }
+}
+
+/* ============ 超大屏 ============ */
+@media (min-width: 1600px) {
+    :root {
+        --container-width: 1320px;
     }
 }

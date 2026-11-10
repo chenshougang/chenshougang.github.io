@@ -1,3 +1,12 @@
+---
+id: 1
+slug: boost-asio
+title: Boost.Asio 网络编程入门
+date: 2023-10-01
+tags: [C++, 网络编程]
+excerpt: 从 io_context 到异步回调，梳理 Boost.Asio 的核心概念与常见用法。
+---
+
 `Boost.Asio` 是一个用于网络编程和并发处理的 C++ 库，它为 TCP、UDP、HTTP、串行端口等提供异步操作。通过 `Boost.Asio`，开发者可以轻松实现高性能网络服务器和客户端应用。下面是一些使用 `Boost.Asio` 的详细案例，包括同步和异步操作。
 
 ### 1. **TCP 同步客户端**

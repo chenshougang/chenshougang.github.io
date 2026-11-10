@@ -1,24 +1,32 @@
 <!DOCTYPE html>
-<!-- 文章列表页面 -->
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>文章列表 - 我的博客</title>
-    
-    <!-- 引入主样式表 -->
+    <meta name="description" content="全部文章 - 陈守刚的技术博客">
+    <meta name="theme-color" content="#05070d">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d1320'/%3E%3Cpath d='M24 20 14 32l10 12M40 20l10 12-10 12' stroke='%2322d3ee' stroke-width='5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+    <title>文章列表 | CSG.DEV</title>
     <link rel="stylesheet" href="../css/style.css">
-    <!-- 引入代码高亮样式 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/styles/github.min.css">
-    <!-- 引入 Font Awesome 图标库 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
 </head>
+
 <body>
+    <div class="bg-layer" aria-hidden="true">
+        <canvas id="bg-canvas"></canvas>
+        <div class="bg-grid"></div>
+        <div class="bg-vignette"></div>
+    </div>
+
     <div class="container">
-        <!-- 头部导航 -->
         <header>
             <div class="header-content">
-                <h1 class="site-title">我的博客</h1>
+                <a href="../index.html" class="site-title">
+                    <span class="logo-mark">&lt;/&gt;</span>
+                    <span class="logo-text">CSG<span class="dim">.DEV</span></span>
+                </a>
                 <nav>
                     <ul>
                         <li><a href="../index.html">首页</a></li>
@@ -26,65 +34,67 @@
                         <li><a href="about.html">关于</a></li>
                     </ul>
                 </nav>
-                <!-- 主题切换按钮 -->
-                <button id="theme-toggle" aria-label="切换主题">
+                <button id="theme-toggle" type="button" aria-label="切换明暗主题">
                     <i class="fas fa-sun sun-icon"></i>
                     <i class="fas fa-moon moon-icon"></i>
                 </button>
             </div>
         </header>
 
-        <!-- 主要内容区域 -->
         <main>
-            <!-- 页面标题区域 -->
-            <section class="articles-header">
-                <h2 class="articles-title">所有文章</h2>
-                <p class="articles-description">这里是我所有的文章，记录了我的思考和学习过程。</p>
+            <section class="page-header">
+                <span class="page-kicker">// ARTICLE ARCHIVE</span>
+                <h2 class="page-title">所有文章</h2>
+                <p class="page-description">记录思考与学习过程的技术笔记，按发布时间倒序排列。</p>
             </section>
 
-            <!-- 搜索框 -->
             <div class="search-container">
                 <i class="fas fa-search search-icon"></i>
-                <input type="text" id="search-input" class="search-input" placeholder="搜索文章标题、内容或标签...">
+                <input type="search" id="search-input" class="search-input" placeholder="搜索标题 / 摘要 / 标签...">
             </div>
 
-            <!-- 标签筛选按钮 -->
             <div class="filter-container" id="filter-container">
-                <!-- 筛选按钮将通过 JavaScript 动态生成 -->
+                <!-- 标签按钮由 JavaScript 动态生成 -->
             </div>
 
-            <!-- 文章列表区域 -->
+            <p class="result-count" id="result-count"></p>
+
             <section class="articles-list">
                 <div class="post-grid" id="all-posts-container">
-                    <!-- 文章卡片将通过 JavaScript 动态生成 -->
+                    <!-- 文章卡片由 JavaScript 动态生成 -->
                 </div>
             </section>
         </main>
 
-        <!-- 页脚 -->
         <footer>
             <div class="footer-content">
                 <div class="footer-links">
-                    <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
-                    <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-                    <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/chenshougang" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="mailto:chenshougang1995@163.com" aria-label="邮箱">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="about.html" aria-label="关于我">
+                        <i class="fas fa-user-astronaut"></i>
+                    </a>
                 </div>
-                <p>&copy; <span id="current-year"></span> 我的博客. 保留所有权利.</p>
+                <p>&copy; <span id="current-year"></span> CSG.DEV · 陈守刚</p>
+                <div class="footer-meta">
+                    <span><span class="status-dot"></span> SYSTEM ONLINE</span>
+                    <span>HTML / CSS / JAVASCRIPT</span>
+                    <span>GITHUB PAGES</span>
+                </div>
             </div>
         </footer>
     </div>
 
-    <!-- 引入第三方库 -->
     <script src="https://cdn.jsdelivr.net/npm/marked@9.0.0/marked.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/core.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/languages/javascript.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/languages/python.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/languages/css.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/lib/languages/html.min.js"></script>
-    
-    <!-- 引入自定义脚本 -->
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/highlight.min.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/posts.js"></script>
+    <script src="../js/effects.js"></script>
     <script src="../js/articles.js"></script>
 </body>
+
 </html>
